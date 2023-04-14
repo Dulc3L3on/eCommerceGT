@@ -1,0 +1,6 @@
+////////////////////////////
+
+Aqui van todas las cosas "flotantes" que actuan como
+diálogos modales.
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\

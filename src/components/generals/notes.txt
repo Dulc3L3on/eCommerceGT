@@ -1,0 +1,7 @@
+//////////////////////////////
+
+Aquí se encuentran todos los componentes
+generales, es decir que no le pertenecen
+a un usuario en específico.
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

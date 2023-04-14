@@ -1,0 +1,7 @@
+////////////////////////////
+
+Aquí van todos aquellos elementos que
+se necesitan MANY por lo tanto se emplea
+un FOR para generarlos.
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\

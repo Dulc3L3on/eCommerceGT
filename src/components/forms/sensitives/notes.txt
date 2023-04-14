@@ -1,0 +1,7 @@
+/////////////////////////////
+
+Aquí van todas las páginas que no tienen
+retorno sino una opción para cerrar, puesto
+que contiene info sensitiva
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

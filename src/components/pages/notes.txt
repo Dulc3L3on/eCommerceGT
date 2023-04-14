@@ -1,0 +1,6 @@
+//////////////////////////////
+
+Aquí van todas las páginas, es decir las que
+tienen URL a sea interna, anidada, o directa.
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
