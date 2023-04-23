@@ -1,0 +1,94 @@
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import Landing from '../components/pages/Landing.js';
+import Signup from '../components/generals/signup/Signup.js';
+import Login from '../components/generals/login/Login.js';
+
+import CustomerHome from '../components/pages/customer/Customer-home.js';
+
+import Store from '../components/pages/customer/store/Store.js';
+import Tracking from '../components/pages/customer/tracking/Tracking.js'
+import MyStore from '../components/pages/customer/myStore/MyStore.js'
+
+
+
+//Owner: LANDING
+function MainRouter(props){//yo imagino que debe tener props puesto que debe devolver un componente JSX...
+    return (        
+            <Routes>
+                <Route index element={<Landing/>}/>
+                <Route path='/' element={<Landing/>}/>
+                <Route path='/GTCommerce' element={<Landing/>}/>
+                                
+                <Route path='/login' element={<Login/>}/>
+                <Route path='/signup' element={<Signup/>}/>
+
+                <Route path='my-account/user' element={<CustomerHome/>}>
+                    <Route path='shop' element={<Store/>}/>
+                    <Route path='track' element={<Tracking/>}/>
+                    <Route path='my-store' element={<MyStore/>}/>
+                </Route>
+
+                <Route path=''>
+
+                </Route>
+            </Routes>        
+    );//lo de my accoutn está aqui temporalmente
+
+    //ya en el router de login y signup ya usaras el Guard para ver a donde direcionar...
+    //cuando se vaya usar el Outlet, entonces Router 2 las eti si solo con children (1) entonces 1 eti y "{}""
+
+}//login, sign in and just that
+
+function HomeRouter(){
+    return (        
+        <Routes>      
+            <Route path='my-account/user/*' element={<CustomerHome/>}/>
+            <Route path='/my-account/admin/' element={<Tracking/>}/>
+            <Route path='/my-account/deliver/' element={<MyStore/>}/>
+        </Routes>        
+    );
+}//esto lo tengo que hacer ejecutar en App.js porque si lo hago en login me va a costar, entonces tendré que hacer algo como un levantamiento de estado, para modificar esto, solo que no se como si el login se add automaticamente y no de manera directa y explícita...
+ //entonces tengo que hacer que el render del div se vuelva a exa para así llegar al métodoo de las decisiones del router que será add al App.js para asó revisar esa var (bandera) para así saber que se han logeado y por lo tanto se debe hacer el envío al home respectivo...
+    //voy a probar usar una funcion que App.js va a exportar y haga un cambio en la interfaz, solo que para eso tendría que volver app.Js en una clase... para así hacer posibel esto... basate en MyStore, pues ahí creo que haces algo asi xD
+
+//luego tengo que hacer que sea usre:id para que así no tenga problemas... como en el tuto
+
+function CustomerRouter(props){
+    return (        
+        <Routes>     
+            <Route path='shop' element={<Store/>}/>
+            <Route path='track' element={<Tracking/>}/>
+            <Route path='my-store' element={<MyStore/>}/>
+        </Routes>        
+    );
+}
+
+export {MainRouter, CustomerRouter};
+
+/*NOTES
+    - absolutas: add "/" antes del nombre del path
+    - relativas: add NOTHING before the path name
+    + descendant
+        vs
+    + nested
+
+*/
+
+
+//POR HACER
+//lo que harás es probar si colocando todas las rutas, es decir invocar
+//las funciones que ibas a usar ndivdualmente, dentro del MainRouter,
+//para ver si no da ningun problema
+    //es decir si no sse logra abrir desde otros lugar solo cuando esté
+    //dentro del padre correcto
+//usando outlet
+    //hasta donde sé solo lo deberías colocar dentro donde quieres que aparezca
+    //El contenido es decir debajo de los nav
+    //luego ya con eso si funciona entonces ya la hicicste
+        //proque quiere decir que si lo detecta
+            //pero si deberás probar que no se pueda acceder estando en otra parte
+    //eso con el ultimo video
+        //tb lee el tuto prevo, el que no entendiste por estar pensando
+
+    //en la noche harás lo de arqui!!!
+        //después de las 20

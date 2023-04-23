@@ -1,8 +1,127 @@
 .App {
-  text-align: center;
+  height: auto;
+  width: 148.1vw;/*100%*/
+
+/*  margin-left: -921px;*/
+
+  display: flex;
+  flex-flow: column wrap;
+  /*display: flex;
+  flex-direction: column;*/
+  align-items: center;  
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  border: 2px solid red;
 }
 
-.App-logo {
+.header-div{
+  height: 10%;
+  width: 100%;
+
+  display:flex;  
+  flex-direction: row; 
+
+  justify-content: center;/*horizontal*/
+  align-items: center;  
+
+  font-family: 'Poppins';
+  font-size: 27px;  
+
+  /*border: 1px solid rebeccapurple;*/
+}
+
+#header-options{
+  height: 100%;
+  width: 58%;
+
+  display: flex;
+  flex-direction: row;
+
+  justify-content: right;
+  align-items: center;
+
+  margin-left: 12px;
+
+  /*padding-right: 150px;*/
+
+  /*border: 1px solid orange;*/
+}
+
+.logo{
+  height: 145px;
+  width: auto;
+
+  /*margin-right: 545px;*/
+}
+
+#login-div{
+    height: 100px;
+    width: 210px;
+
+    display: flex;    
+    align-items: center;  
+    justify-content: center;
+
+    margin-right: 50px;       
+
+    /*border: 2px solid papayawhip;*/
+}
+
+#login-option-icon, #signup-option-icon{
+  height: 90px;
+  width: 49px;
+
+  display: flex;
+  align-items: center;
+
+  font-size: 45px;
+  color: rgb(12, 12, 88);
+
+  /*border: 1px solid goldenrod;*/
+}
+
+#login-option-message, #signup-option-message{
+  height: auto;
+  width: 120px;
+
+  color: rgb(110, 105, 105);  
+
+  margin: -90px 0px 0px 70px;  
+
+  /*border: 1px solid sandybrown;*/
+}
+
+#signup-div{
+    height: 100px;
+    width: 210px;
+
+    display:flex;    
+    align-items: center;  
+    justify-content: center;     
+
+    /*border: 1px solid rosybrown;*/
+}
+
+a:link {
+   text-decoration: none;
+}
+
+a:hover {
+  color: rebeccapurple;
+}
+
+a:visited {
+  text-decoration: none;
+  }
+
+#signup-div:hover, #login-div:hover {
+  border-radius: 15px;
+  background-color: #F2F3F7;/*rgba(192, 191, 191, 0.233)*/
+}
+
+/*.App-logo {
   height: 40vmin;
   pointer-events: none;
 }
@@ -35,4 +154,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+}*/

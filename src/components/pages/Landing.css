@@ -1,0 +1,18 @@
+.landing-container{
+    height: 100%;
+    width: 100%;/*148%*/
+
+    display: flex;
+    flex-direction: column;  
+    justify-content: center;
+    align-items: center;
+  
+    box-sizing: border-box;
+
+    /*margin-top: 200px;*/
+
+    border: 1px solid purple;
+}
+
+
+

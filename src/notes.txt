@@ -1,0 +1,23 @@
+///////////////////////////
+
+Aquí se encuentran los elementos que están hasta arriba
+de la jerarquía.
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+NOTA
+- En el caso del Router, debes ver donde lo vas a colocar
+  porque el contenido que enruta, aparecerá en el espacio
+  en el que invocaste el bloque de las <Routes>
+    en este caso ese era el problema que estaba teniendo
+    al momento de presentar las páginas, por eso se mostraba
+    todo en una linea, porque tenia metido el Router (me ref 
+    al componente que tiene las <Routes>) en el div de las
+    opciones del encabezado, entonces todas las páginas a
+    renderizar, se mostraban adentro...
+
+- Por eso resulta util colocar el BrowserRouter englobando
+  el <App/> porque así ese bloque que contiene las <Routes/>,
+  se podrá colocar donde te convenga, sin ninguna preocupación
+  de tener que volver a usar el BrowserRouter y ver cómo hacerle
+  para no tener algun otro de ellos adentro de uno xD.

@@ -1,0 +1,32 @@
+////////////////////////////////////////////////////
+
+Here I am going to write the code that is going to
+act as a Frontend's backend in order to create and
+help the interface to have amazing animations and
+behavior in general words.
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+>>>replaced
+[1.][Tool]
+/*let initPosition = window.scrollY;
+
+window.onscroll = function(){
+    console.log("init: " + initPosition + "\n");
+    let actualPosition = window.scrollY;
+
+    if(initPosition >= actualPosition){
+        document.getElementById('header-div').style.top = '0';
+    }else{
+        document.getElementById('header-div').style.top = '100px';
+    }
+
+    console.log("actual: " + actualPosition + "\n");
+    initPosition = actualPosition;
+}*/
+
+[1.][index]
+<script src="/Frontend/e-commerce-gt/src/logic/Tool.js"></script>
+
+//////It will be useful but not in React
+

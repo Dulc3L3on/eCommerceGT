@@ -1,0 +1,80 @@
+.my-store-container{
+    height: auto;
+    min-height: 1176px;
+    width: 100%;
+
+    box-sizing: border-box;
+    padding: 70px 510px;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 19px;
+
+    background-color: #F2F3F7;
+}
+
+table{
+    background-color: white;
+    border: 1px solid black;
+}
+
+table th{
+    height: 70px;        
+
+    box-sizing: border-box;
+    padding-top: 5px;
+}
+
+tr:hover{    
+    background-color: #D4F2FF;/*#C6FFFF;/*rgba(173, 217, 255, 0.39);*/
+}
+
+table td{
+    height: 120px;  
+
+    padding: 25px;
+}
+
+th:first-child, td:first-child{
+    max-width: 120px;
+}
+
+table th:nth-child(2), td:first-child {
+    max-width: 140px;
+}
+
+table th:nth-child(3), td:first-child {
+    max-width: 100px;
+}
+
+table th:nth-child(4), td:first-child {
+    max-width: 270px;
+}
+
+table th:nth-child(5), td:first-child {
+    max-width: 70px;
+}
+
+table th:nth-child(6), td:first-child {
+    width: 70px;
+}
+
+table th:last-child, td:first-child {
+    width: 60px;
+}
+
+#product-img{
+    width: 60px;
+    height: 60px;
+}
+
+#footer-section{
+    height: 75px;
+    width: 75px;
+    border-radius: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: white;
+}

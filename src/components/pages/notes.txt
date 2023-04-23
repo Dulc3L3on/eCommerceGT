@@ -2,5 +2,1663 @@
 
 Aquí van todas las páginas, es decir las que
 tienen URL a sea interna, anidada, o directa.
+    > para estos el nombre del div = CONTAINER
+        > para los que son grandes pero van adentro DIV 
+            > para los que tamien tienen cosas dentro pero van en un DIV - SECTION
 
 \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+Replaced
+Not because there was a amistake else because you wanted a multi-page 
+on some cases, so becx of that I am going to add the menu on the app
+because landing is another page that has to change
+
+
+import './Landing.css';
+
+import {BrowserRouter, Routes, Route, Link} from 'react-router-dom'
+
+import logo from '../../assets/gtCommerce-logo.png';
+import MainRouter from '../../navigation/Router.js';
+import Store from './customer/store/Store';
+
+function Landing(props){
+    return (
+        <div className="home-container">
+            <Header/>
+            <Store/>
+        </div>        
+    );
+}
+
+function Header(props){
+    return (
+        <div className="header-div">
+           <img src={logo} className="logo" alt="logo"/>
+
+           <NavBar/>
+        </div>        
+    );
+}
+
+function NavBar(props){
+    return(        
+        <BrowserRouter>
+            <div id="logIn">
+                <a href='/login'>Log in</a>
+            </div>
+            <div id="signIn">
+                <a href='/signup'>Sign up</a>
+            </div>          
+
+            <MainRouter/>
+        </BrowserRouter>
+    );
+}
+
+/*NOTE: Use Link if you want navigate internally
+            //<Link to='/login'>Log in</Link>
+      or A href if you want an itnernal navigation
+            //<a href='login'>Log in</a>
+*/
+
+export default Landing;
+
+
+
+||||||||||||||||||||Traacking-Accourdion
+- Puesto que con bootsptrap el botoncito no funciona, entonces mejor media
+  pase a usar el example de ReactBootstrap, en el que se usan componentes
+  en lugar de etiquetas
+    - recuerda que en el de bootstrap, le cambiaste de "-" a las prop (los
+      encabezados de cada propiedad, como style) a CamelCase
+
+
+<div className="accordion" id="accordionExample">
+          <div className="accordion-item">
+            <h2 className="accordion-header">
+              <button className="accordion-button" type="button" dataBsToggle="collapse" dataBsTarget="#collapseOne" ariaExpanded="true" ariaControls="collapseOne">
+                Accordion Item #1
+              </button>
+            </h2>
+            <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="table-accordion">
+              <div className="accordion-body">
+                <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+              </div>
+            </div>
+          </div>          
+        </div>
+
+||||||||||||||||||||Tracking-component 
+ - Previo a convertirlo a una clase, por el filtro :v  - PERFECT FUNCTION
+
+ import './Tracking.css'
+import tracking_path from '../../../../assets/tracking-path.png'
+import Accordion from 'react-bootstrap/Accordion';
+
+function Tracking(props){
+    const orders = [
+        {code: '3543123',
+         products: 'peluche-gato-blanco, peluche-perro-bebe, amueblado-grey',
+         date: '04/28/2023',
+         status: 'uploading'},//el name a partir del codigo
+
+         {code: '8987643',
+         products: 'Juego-de-Sala-Sahara',
+         date: '04/30/2023',
+         status: 'packing'},
+
+         {code: '7898462',
+         products: 'Juego-de-Sala-Tucson, ',
+         date: '05/12/2023',
+         status: 'processing'},
+    ];//este ya con la DB será llenado con los ele que se consigan a partir del codigo de usuario que estará en las props
+
+    return (
+        <div className='tracking-container'>
+            <TrackingContent orders={orders}/>                        
+        </div>
+    );  
+}
+
+function TrackingContent(props){
+    return(
+        <div id="accordion-container">
+            <Accordion defaultActiveKey={['0']} alwaysOpen>
+                <Accordion.Item eventKey="0">                
+                    <Accordion.Header>
+                        <div id="accordion-header">
+                            Tracking Path
+                        </div>                        
+                    </Accordion.Header>                
+            
+                    <Accordion.Body>
+                        <TrackingPicture orders={props.orders}/>
+                    </Accordion.Body>
+                </Accordion.Item>             
+                <Accordion.Item eventKey="1">                
+                    <Accordion.Header>
+                        <div id="accordion-header">
+                            Tracking details
+                        </div>                        
+                    </Accordion.Header>                
+            
+                    <Accordion.Body>
+                        <TrackingTable orders={props.orders}/>
+                    </Accordion.Body>
+                </Accordion.Item>      
+            </Accordion>
+        </div>
+    );
+}
+
+function TrackingPicture(props){
+    const orders = getOrders(props.orders);//se recibirá de la DB
+
+    return (
+        <div id="tracking-picture">            
+            {orders &&                
+                orders.map((order, index) =>
+                    <TrackingPictureBuilder key={index}
+                                     code={order.code}
+                                     number={index}
+                                     status={order.status}
+                                     position={(order.status === 'processing')?1
+                                                 :((order.status === 'packing')?2
+                                                    :((order.status === 'uploading')?3
+                                                        :((order.status === 'carrying')?4:5)))} />
+                )
+            }            
+        </div>            
+    );
+}
+
+function getOrders(orders){
+    let selectedOrders = [];    
+    const today = new Date(Date.now()).toLocaleDateString();
+
+    for(let i =0; i < orders.length; i++){
+        if(orders.status !== 'delivered' || (orders.status === 'delivered' 
+            && orders.date < today)){//como van a ser DATE entonces no habrá problema como si fueran string, o sea en la DB creo que se almacenará como string, luego se convertirá a date
+                selectedOrders.push(orders[i]);
+        }
+    }
+
+    return selectedOrders;
+}//hace que las img sean de no entregados o de entregados actuales
+
+function TrackingPictureBuilder(props){
+    return (
+        <div id="tracking-order">
+            <div className="tracking-code">
+                {props.code}
+            </div>
+            <div className="tracking-item">
+                <div id="tracking-item-mov" className={"position-"+`${props.position}`}>
+                    <span>{props.status}</span>
+                    <div id="truck-icon">                
+                        <i className="bi bi-truck"></i>
+                    </div>            
+                </div>                
+                <img id="path-img" src={tracking_path} alt={props.code}/>
+            </div>
+        </div>
+        
+    );
+}
+
+//NOTA: si fecha == date AND status == delivered THEN the image will be show,
+ //else just will appear on the table if the option is selected
+    //si no está seleccionada la opción, aunque se muestre la imagen, no será
+    //mostrada en la tabla
+
+function TrackingTable(props){
+    return(
+        <div id="tracking-table-container">
+            <div id="tracking-table-filter">
+                
+            </div>
+            <div id="tracking-table-content">
+                <TrackingHeader/>
+                <TrackingBody orders={props.orders}/>
+            </div>            
+        </div>
+    );
+}
+
+function TrackingHeader(props){    
+    return(        
+        <div id="tracking-table-header">
+            <div id="tracking-table-title-1">
+                No.
+            </div>
+            <div id="tracking-table-title-2">
+                Order code
+            </div>
+            <div id="tracking-table-title-3">
+                Products list
+            </div>
+            <div id="tracking-table-title-4">
+                Delivery date 
+            </div>
+            <div id="tracking-table-title-5">
+                Status
+            </div>            
+        </div>
+    );
+}
+
+function TrackingBody(props){
+    const orders = props.orders;
+    
+    //mira si da error al ser null
+    const rows = orders.map((order, index) =>
+        <TrackingRow key={index} 
+                     number={index+1}
+                     code={order.code}
+                     products={order.products}
+                     date={order.date}
+                     status={order.status}/>
+    );
+ 
+    return(
+        <div id="tracking-table-body">
+            {orders && rows}
+        </div>
+    );
+}
+
+function TrackingRow(props){
+    return (
+        <div id="tracking-table-row">
+            <div id="tracking-table-title-1">
+                {props.number}
+            </div>
+            <div id="tracking-table-title-2">
+                {props.code}
+            </div>
+            <div id="tracking-table-title-3">
+                {props.products}
+            </div>
+            <div id="tracking-table-title-4">
+                {props.date}
+            </div>
+            <div id="tracking-table-title-5">
+                {props.status}
+            </div>            
+        </div>
+    );
+}
+
+export default Tracking;
+
+//funciona expectacularmente xD [FUNCTION version]
+
+
+||||||||||||||||||||||||||Tracking
+ - Cuando por error convertí todo el componente en una clase, cuando en
+   realidad solo debía ser lo de la table
+
+   import React from 'react'
+
+import './Tracking.css'
+import tracking_path from '../../../../assets/tracking-path.png'
+import Accordion from 'react-bootstrap/Accordion';
+
+class Tracking extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            delivered: false
+        };
+
+        //handlers
+        this.handleChange = this.handleChange.bind(this);
+
+        //components
+        this.Tracking = this.Tracking.bind(this);
+        this.TrackingContent = this.TrackingContent.bind(this);
+        this.TrackingPicture = this.TrackingPicture.bind(this);
+        this.TrackingPictureBuilder = this.TrackingPictureBuilder.bind(this);
+        this.TrackingTable = this.TrackingTable.bind(this);
+        this.TrackingHeader = this.TrackingHeader.bind(this);
+        this.TrackingBody = this.TrackingBody.bind(this);
+        this.TrackingRow = this.TrackingRow.bind(this);
+        
+        //functions
+        this.getOrders = this.getOrders.bind(this);
+    }
+
+    handleChange(event){
+        this.setState({delivered: event.target.checked});
+    }
+
+    Tracking(){
+        const orders = [
+            {code: '3543123',
+             products: 'peluche-gato-blanco, peluche-perro-bebe, amueblado-grey',
+             date: '04/28/2023',
+             status: 'uploading'},//el name a partir del codigo
+    
+             {code: '8987643',
+             products: 'Juego-de-Sala-Sahara',
+             date: '04/30/2023',
+             status: 'packing'},
+    
+             {code: '7898462',
+             products: 'Juego-de-Sala-Tucson, ',
+             date: '05/12/2023',
+             status: 'processing'},
+        ];//este ya con la DB será llenado con los ele que se consigan a partir del codigo de usuario que estará en las props
+    
+        return (
+            <div className='tracking-container'>
+                <this.TrackingContent orders={orders}/>                        
+            </div>
+        );  
+    }
+    
+    TrackingContent(){
+        return(
+            <div id="accordion-container">
+                <Accordion defaultActiveKey={['0']} alwaysOpen>
+                    <Accordion.Item eventKey="0">                
+                        <Accordion.Header>
+                            <div id="accordion-header">
+                                Tracking Path
+                            </div>                        
+                        </Accordion.Header>                
+                
+                        <Accordion.Body>
+                            <this.TrackingPicture orders={this.props.orders}/>
+                        </Accordion.Body>
+                    </Accordion.Item>             
+                    <Accordion.Item eventKey="1">                
+                        <Accordion.Header>
+                            <div id="accordion-header">
+                                Tracking details
+                            </div>                        
+                        </Accordion.Header>                
+                
+                        <Accordion.Body>
+                            <this.TrackingTable orders={this.props.orders}/>
+                        </Accordion.Body>
+                    </Accordion.Item>      
+                </Accordion>
+            </div>
+        );
+    }
+    
+    TrackingPicture(){
+        const orders = this.getOrders(this.props.orders);//se recibirá de la DB
+    
+        return (
+            <div id="tracking-picture">            
+                {orders &&                
+                    orders.map((order, index) =>
+                        <this.TrackingPictureBuilder key={index}
+                                         code={order.code}
+                                         number={index}
+                                         status={order.status}
+                                         position={(order.status === 'processing')?1
+                                                     :((order.status === 'packing')?2
+                                                        :((order.status === 'uploading')?3
+                                                            :((order.status === 'carrying')?4:5)))} />
+                    )
+                }            
+            </div>            
+        );
+    }
+    
+    getOrders(orders){
+        let selectedOrders = [];    
+        const today = new Date(Date.now()).toLocaleDateString();
+    
+        for(let i =0; i < orders.length; i++){
+            if(orders.status !== 'delivered' || (orders.status === 'delivered' 
+                && orders.date < today)){//como van a ser DATE entonces no habrá problema como si fueran string, o sea en la DB creo que se almacenará como string, luego se convertirá a date
+                    selectedOrders.push(orders[i]);
+            }
+        }
+    
+        return selectedOrders;
+    }//hace que las img sean de no entregados o de entregados actuales
+    
+    TrackingPictureBuilder(){
+        return (
+            <div id="tracking-order">
+                <div className="tracking-code">
+                    {this.props.code}
+                </div>
+                <div className="tracking-item">
+                    <div id="tracking-item-mov" className={"position-"+`${this.props.position}`}>
+                        <span>{this.props.status}</span>
+                        <div id="truck-icon">                
+                            <i className="bi bi-truck"></i>
+                        </div>            
+                    </div>                
+                    <img id="path-img" src={tracking_path} alt={this.props.code}/>
+                </div>
+            </div>
+            
+        );
+    }
+    
+    //NOTA: si fecha == date AND status == delivered THEN the image will be show,
+     //else just will appear on the table if the option is selected
+        //si no está seleccionada la opción, aunque se muestre la imagen, no será
+        //mostrada en la tabla
+    
+    TrackingTable(){
+        return(
+            <div id="tracking-table-container">
+                <div id="tracking-table-filter">
+                    
+                </div>
+                <div id="tracking-table-content">
+                    <this.TrackingHeader/>
+                    <this.TrackingBody orders={this.props.orders}/>
+                </div>            
+            </div>
+        );
+    }
+    
+    TrackingHeader(){    
+        return(        
+            <div id="tracking-table-header">
+                <div id="tracking-table-title-1">
+                    No.
+                </div>
+                <div id="tracking-table-title-2">
+                    Order code
+                </div>
+                <div id="tracking-table-title-3">
+                    Products list
+                </div>
+                <div id="tracking-table-title-4">
+                    Delivery date 
+                </div>
+                <div id="tracking-table-title-5">
+                    Status
+                </div>            
+            </div>
+        );
+    }
+    
+    TrackingBody(){
+        const orders = this.props.orders;
+        
+        //mira si da error al ser null
+        const rows = orders.map((order, index) =>
+            <this.TrackingRow key={index} 
+                         number={index+1}
+                         code={order.code}
+                         products={order.products}
+                         date={order.date}
+                         status={order.status}/>
+        );
+     
+        return(
+            <div id="tracking-table-body">
+                {orders && rows}
+            </div>
+        );
+    }
+    
+    TrackingRow(){
+        return (
+            <div id="tracking-table-row">
+                <div id="tracking-table-title-1">
+                    {this.props.number}
+                </div>
+                <div id="tracking-table-title-2">
+                    {this.props.code}
+                </div>
+                <div id="tracking-table-title-3">
+                    {this.props.products}
+                </div>
+                <div id="tracking-table-title-4">
+                    {this.props.date}
+                </div>
+                <div id="tracking-table-title-5">
+                    {this.props.status}
+                </div>            
+            </div>
+        );
+    }
+
+}
+
+
+
+export default Tracking;
+
+////Funciona a la perfección, en realidad no. No había actualizado xD
+    //aquí abajo está la que medio modifiqué para arreglar alguito xD
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React from 'react'
+
+import './Tracking.css'
+import tracking_path from '../../../../assets/tracking-path.png'
+import Accordion from 'react-bootstrap/Accordion';
+
+class Tracking extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            delivered: false
+        };
+
+        //handlers
+        this.handleChange = this.handleChange.bind(this);
+
+        //components        
+        this.TrackingContent = this.TrackingContent.bind(this);
+        this.TrackingPicture = this.TrackingPicture.bind(this);
+        this.TrackingPictureBuilder = this.TrackingPictureBuilder.bind(this);
+        this.TrackingTable = this.TrackingTable.bind(this);
+        this.TrackingHeader = this.TrackingHeader.bind(this);
+        this.TrackingBody = this.TrackingBody.bind(this);
+        this.TrackingRow = this.TrackingRow.bind(this);
+        
+        //functions
+        this.getOrders = this.getOrders.bind(this);
+    }
+
+    handleChange(event){
+        this.setState({delivered: event.target.checked});
+    }
+
+    render(){
+        const orders = [
+            {code: '3543123',
+             products: 'peluche-gato-blanco, peluche-perro-bebe, amueblado-grey',
+             date: '04/28/2023',
+             status: 'uploading'},//el name a partir del codigo
+    
+             {code: '8987643',
+             products: 'Juego-de-Sala-Sahara',
+             date: '04/30/2023',
+             status: 'packing'},
+    
+             {code: '7898462',
+             products: 'Juego-de-Sala-Tucson, ',
+             date: '05/12/2023',
+             status: 'processing'},
+        ];//este ya con la DB será llenado con los ele que se consigan a partir del codigo de usuario que estará en las props
+    
+        return (
+            <div className='tracking-container'>
+                <this.TrackingContent orders={orders}/>                        
+            </div>
+        );  
+    }
+    
+    TrackingContent(){
+        return(
+            <div id="accordion-container">
+                <Accordion defaultActiveKey={['0']} alwaysOpen>
+                    <Accordion.Item eventKey="0">                
+                        <Accordion.Header>
+                            <div id="accordion-header">
+                                Tracking Path
+                            </div>                        
+                        </Accordion.Header>                
+                
+                        <Accordion.Body>
+                            <this.TrackingPicture/>
+                        </Accordion.Body>
+                    </Accordion.Item>             
+                    <Accordion.Item eventKey="1">                
+                        <Accordion.Header>
+                            <div id="accordion-header">
+                                Tracking details
+                            </div>                        
+                        </Accordion.Header>                
+                
+                        <Accordion.Body>
+                            <this.TrackingTable orders={this.props.orders}/>
+                        </Accordion.Body>
+                    </Accordion.Item>      
+                </Accordion>
+            </div>
+        );
+    }
+    
+    TrackingPicture(){
+        const orders = this.getOrders(this.props.orders);//se recibirá de la DB
+    
+        return (
+            <div id="tracking-picture">            
+                {orders &&                
+                    orders.map((order, index) =>
+                        <this.TrackingPictureBuilder key={index}
+                                         code={order.code}
+                                         number={index}
+                                         status={order.status}
+                                         position={(order.status === 'processing')?1
+                                                     :((order.status === 'packing')?2
+                                                        :((order.status === 'uploading')?3
+                                                            :((order.status === 'carrying')?4:5)))} />
+                    )
+                }            
+            </div>            
+        );
+    }
+    
+    getOrders(orders){
+        let selectedOrders = [];    
+        const today = new Date(Date.now()).toLocaleDateString();
+    
+        for(let i =0; i < this.props.orders.length; i++){
+            if(orders.status !== 'delivered' || (orders.status === 'delivered' 
+                && orders.date < today)){//como van a ser DATE entonces no habrá problema como si fueran string, o sea en la DB creo que se almacenará como string, luego se convertirá a date
+                    selectedOrders.push(orders[i]);
+            }
+        }
+    
+        return selectedOrders;
+    }//hace que las img sean de no entregados o de entregados actuales
+    
+    TrackingPictureBuilder(){
+        return (
+            <div id="tracking-order">
+                <div className="tracking-code">
+                    {this.props.code}
+                </div>
+                <div className="tracking-item">
+                    <div id="tracking-item-mov" className={"position-"+`${this.props.position}`}>
+                        <span>{this.props.status}</span>
+                        <div id="truck-icon">                
+                            <i className="bi bi-truck"></i>
+                        </div>            
+                    </div>                
+                    <img id="path-img" src={tracking_path} alt={this.props.code}/>
+                </div>
+            </div>
+            
+        );
+    }
+    
+    //NOTA: si fecha == date AND status == delivered THEN the image will be show,
+     //else just will appear on the table if the option is selected
+        //si no está seleccionada la opción, aunque se muestre la imagen, no será
+        //mostrada en la tabla
+    
+    TrackingTable(){
+        return(
+            <div id="tracking-table-container">
+                <div id="tracking-table-filter">
+                    
+                </div>
+                <div id="tracking-table-content">
+                    <this.TrackingHeader/>
+                    <this.TrackingBody orders={this.props.orders}/>
+                </div>            
+            </div>
+        );
+    }
+    
+    TrackingHeader(){    
+        return(        
+            <div id="tracking-table-header">
+                <div id="tracking-table-title-1">
+                    No.
+                </div>
+                <div id="tracking-table-title-2">
+                    Order code
+                </div>
+                <div id="tracking-table-title-3">
+                    Products list
+                </div>
+                <div id="tracking-table-title-4">
+                    Delivery date 
+                </div>
+                <div id="tracking-table-title-5">
+                    Status
+                </div>            
+            </div>
+        );
+    }
+    
+    TrackingBody(){
+        const orders = this.props.orders;
+        
+        //mira si da error al ser null
+        const rows = orders.map((order, index) =>
+            <this.TrackingRow key={index} 
+                         number={index+1}
+                         code={order.code}
+                         products={order.products}
+                         date={order.date}
+                         status={order.status}/>
+        );
+     
+        return(
+            <div id="tracking-table-body">
+                {orders && rows}
+            </div>
+        );
+    }
+    
+    TrackingRow(){
+        return (
+            <div id="tracking-table-row">
+                <div id="tracking-table-title-1">
+                    {this.props.number}
+                </div>
+                <div id="tracking-table-title-2">
+                    {this.props.code}
+                </div>
+                <div id="tracking-table-title-3">
+                    {this.props.products}
+                </div>
+                <div id="tracking-table-title-4">
+                    {this.props.date}
+                </div>
+                <div id="tracking-table-title-5">
+                    {this.props.status}
+                </div>            
+            </div>
+        );
+    }
+
+}
+
+
+
+export default Tracking;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+|||||||||||||||||CURRENT
+
+import React from 'react'
+
+import './Tracking.css'
+import tracking_path from '../../../../assets/tracking-path.png'
+import Accordion from 'react-bootstrap/Accordion';
+
+function Tracking(props){
+    const orders = [
+        {code: '3543123',
+         products: 'peluche-gato-blanco, peluche-perro-bebe, amueblado-grey',
+         date: '04/28/2023',
+         status: 'uploading'},//el name a partir del codigo
+
+         {code: '8987643',
+         products: 'Juego-de-Sala-Sahara',
+         date: '04/30/2023',
+         status: 'packing'},
+
+         {code: '7898462',
+         products: 'Juego-de-Sala-Tucson, ',
+         date: '05/12/2023',
+         status: 'processing'},
+    ];//este ya con la DB será llenado con los ele que se consigan a partir del codigo de usuario que estará en las props
+
+    return (
+        <div className='tracking-container'>
+            <TrackingContent orders={orders}/>                        
+        </div>
+    );  
+}
+
+function TrackingContent(props){
+    return(
+        <div id="accordion-container">
+            <Accordion defaultActiveKey={['0']} alwaysOpen>
+                <Accordion.Item eventKey="0">                
+                    <Accordion.Header>
+                        <div id="accordion-header">
+                            Tracking Path
+                        </div>                        
+                    </Accordion.Header>                
+            
+                    <Accordion.Body>
+                        <TrackingPicture orders={props.orders}/>
+                    </Accordion.Body>
+                </Accordion.Item>             
+                <Accordion.Item eventKey="1">                
+                    <Accordion.Header>
+                        <div id="accordion-header">
+                            Tracking details
+                        </div>                        
+                    </Accordion.Header>                
+            
+                    <Accordion.Body>
+                        <TrackingTable orders={props.orders}/>
+                    </Accordion.Body>
+                </Accordion.Item>      
+            </Accordion>
+        </div>
+    );
+}
+
+function TrackingPicture(props){
+    const orders = getOrders(props.orders);//se recibirá de la DB
+
+    return (
+        <div id="tracking-picture">            
+            {orders &&                
+                orders.map((order, index) =>
+                    <TrackingPictureBuilder key={index}
+                                     code={order.code}
+                                     number={index}
+                                     status={order.status}
+                                     position={(order.status === 'processing')?1
+                                                 :((order.status === 'packing')?2
+                                                    :((order.status === 'uploading')?3
+                                                        :((order.status === 'carrying')?4:5)))} />
+                )
+            }            
+        </div>            
+    );
+}
+
+function getOrders(orders){
+    let selectedOrders = [];    
+    const today = new Date(Date.now()).toLocaleDateString();
+
+    for(let i =0; i < orders.length; i++){
+        if(orders.status !== 'delivered' || (orders.status === 'delivered' 
+            && orders.date < today)){//como van a ser DATE entonces no habrá problema como si fueran string, o sea en la DB creo que se almacenará como string, luego se convertirá a date
+                selectedOrders.push(orders[i]);
+        }
+    }
+
+    return selectedOrders;
+}//hace que las img sean de no entregados o de entregados actuales
+
+function TrackingPictureBuilder(props){
+    return (
+        <div id="tracking-order">
+            <div className="tracking-code">
+                {props.code}
+            </div>
+            <div className="tracking-item">
+                <div id="tracking-item-mov" className={"position-"+`${props.position}`}>
+                    <span>{props.status}</span>
+                    <div id="truck-icon">                
+                        <i className="bi bi-truck"></i>
+                    </div>            
+                </div>                
+                <img id="path-img" src={tracking_path} alt={props.code}/>
+            </div>
+        </div>        
+    );
+}
+
+//NOTA: si fecha == date AND status == delivered THEN the image will be show,
+ //else just will appear on the table if the option is selected
+    //si no está seleccionada la opción, aunque se muestre la imagen, no será
+    //mostrada en la tabla
+
+class TrackingTable extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            index: 0,
+            delivered: false
+        };
+
+        //handlers
+        this.handleChange = this.handleChange.bind(this);
+        this.changeIndex = this.changeIndex.bind(this);
+
+        //components        
+        //this.TrackingTable = this.TrackingTable.bind(this);
+        this.TrackingHeader = this.TrackingHeader.bind(this);
+        this.TrackingBody = this.TrackingBody.bind(this);
+        this.TrackingRow = this.TrackingRow.bind(this);
+        
+        //functions
+        //this.getOrders = this.getOrders.bind(this);
+    }
+
+    changeIndex(current){
+        this.setState({index: current});
+    }
+
+    handleChange(event){
+        this.setState({delivered: event.target.checked});
+    }   
+
+    TrackingHeader(){    
+        return(        
+            <div id="tracking-table-header">
+                <div id="tracking-table-title-1">
+                    No.
+                </div>
+                <div id="tracking-table-title-2">
+                    Order code
+                </div>
+                <div id="tracking-table-title-3">
+                    Products list
+                </div>
+                <div id="tracking-table-title-4">
+                    Delivery date 
+                </div>
+                <div id="tracking-table-title-5">
+                    Status
+                </div>            
+            </div>
+        );
+    }
+    
+    TrackingBody(){
+        const orders = this.props.orders;        
+        
+        const rows = orders.map((index) =>//mira si da error al ser null
+            {
+                this.changeIndex(index);
+                <this.TrackingRow key={index}/>
+            }
+        );
+     
+        return(
+            <div id="tracking-table-body">
+                {orders && rows}
+            </div>
+        );
+    }
+
+    /*
+    number={index+1}
+    code={order.code}
+    products={order.products}
+    date={order.date}
+    status={order.status}
+    */
+    
+    TrackingRow(){
+        return (
+            <div id="tracking-table-row">
+                <div id="tracking-table-title-1">
+                    {this.state.index+1}
+                </div>
+                <div id="tracking-table-title-2">
+                    {this.props[this.state.index].code}
+                </div>
+                <div id="tracking-table-title-3">
+                    {this.props[this.state.index].products}
+                </div>
+                <div id="tracking-table-title-4">
+                    {this.props[this.state.index].date}
+                </div>
+                <div id="tracking-table-title-5">
+                    {this.props[this.state.index].status}
+                </div>            
+            </div>
+        );
+    }
+
+    render(){
+        return(
+            <div id="tracking-table-container">
+                <div id="tracking-table-filter">
+                    
+                </div>
+                <div id="tracking-table-content">
+                    <this.TrackingHeader/>
+                    <this.TrackingBody />
+                </div>            
+            </div>
+        );
+    }
+
+}
+
+
+
+export default Tracking;
+
+
+/////////////MÉTODO
+
+- puesto que se me ocurrio exe por medio de un for y ahí mismo
+  hacer la comparación y recolectarlo todo en un arreglo para
+  así ser mostrado al final.
+
+
+   TrackingBody(){
+        const orders = this.props.orders;        
+        
+        //const rows = orders.map((index) =>//mira si da error al ser null
+            //{
+                //this.changeIndex(index);
+                //<this.TrackingRow key={index}/>
+        //    }
+        //);
+     
+        return(
+            <div id="tracking-table-body">
+                {orders &&  <this.TrackingRow /*key={index}*//>}
+            </div>
+        );
+    }
+
+
+
+////////////////////////Usando CLASS solo para TABLE
+ - lo quitaré porque usaré CLASS para filter y para el TrackingTable
+
+
+ import React from 'react'
+
+import './Tracking.css'
+import tracking_path from '../../../../assets/tracking-path.png'
+import Accordion from 'react-bootstrap/Accordion';
+
+function Tracking(props){
+    const orders = [
+        {code: '3543123',
+         products: 'peluche-gato-blanco, peluche-perro-bebe, amueblado-grey',
+         date: '04/28/2023',
+         status: 'uploading'},//el name a partir del codigo
+
+         {code: '8987643',
+         products: 'Juego-de-Sala-Sahara',
+         date: '04/30/2023',
+         status: 'packing'},
+
+         {code: '7898462',
+         products: 'Juego-de-Sala-Tucson, ',
+         date: '05/12/2023',
+         status: 'processing'},
+    ];//este ya con la DB será llenado con los ele que se consigan a partir del codigo de usuario que estará en las props
+
+    return (
+        <div className='tracking-container'>
+            <TrackingContent orders={orders}/>                        
+        </div>
+    );  
+}
+
+function TrackingContent(props){
+    return(
+        <div id="accordion-container">
+            <Accordion defaultActiveKey={['0']} alwaysOpen>
+                <Accordion.Item eventKey="0">                
+                    <Accordion.Header>
+                        <div id="accordion-header">
+                            Tracking Path
+                        </div>                        
+                    </Accordion.Header>                
+            
+                    <Accordion.Body>
+                        <TrackingPicture orders={props.orders}/>
+                    </Accordion.Body>
+                </Accordion.Item>             
+                <Accordion.Item eventKey="1">                
+                    <Accordion.Header>
+                        <div id="accordion-header">
+                            Tracking details
+                        </div>                        
+                    </Accordion.Header>                
+            
+                    <Accordion.Body>
+                        <TrackingTable orders={props.orders}/>
+                    </Accordion.Body>
+                </Accordion.Item>      
+            </Accordion>
+        </div>
+    );
+}
+
+function TrackingPicture(props){
+    const orders = getOrders(props.orders);//se recibirá de la DB
+
+    return (
+        <div id="tracking-picture">            
+            {orders &&                
+                orders.map((order, index) =>
+                    <TrackingPictureBuilder key={index}
+                                     code={order.code}
+                                     number={index}
+                                     status={order.status}
+                                     position={(order.status === 'processing')?1
+                                                 :((order.status === 'packing')?2
+                                                    :((order.status === 'uploading')?3
+                                                        :((order.status === 'carrying')?4:5)))} />
+                )
+            }            
+        </div>            
+    );
+}
+
+function getOrders(orders){
+    let selectedOrders = [];    
+    const today = new Date(Date.now()).toLocaleDateString();
+
+    for(let i =0; i < orders.length; i++){
+        if(orders.status !== 'delivered' || (orders.status === 'delivered' 
+            && orders.date < today)){//como van a ser DATE entonces no habrá problema como si fueran string, o sea en la DB creo que se almacenará como string, luego se convertirá a date
+                selectedOrders.push(orders[i]);
+        }
+    }
+
+    return selectedOrders;
+}//hace que las img sean de no entregados o de entregados actuales
+
+function TrackingPictureBuilder(props){
+    return (
+        <div id="tracking-order">
+            <div className="tracking-code">
+                {props.code}
+            </div>
+            <div className="tracking-item">
+                <div id="tracking-item-mov" className={"position-"+`${props.position}`}>
+                    <span>{props.status}</span>
+                    <div id="truck-icon">                
+                        <i className="bi bi-truck"></i>
+                    </div>            
+                </div>                
+                <img id="path-img" src={tracking_path} alt={props.code}/>
+            </div>
+        </div>        
+    );
+}
+
+//NOTA: si fecha == date AND status == delivered THEN the image will be show,
+ //else just will appear on the table if the option is selected
+    //si no está seleccionada la opción, aunque se muestre la imagen, no será
+    //mostrada en la tabla
+
+class TrackingTable extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {                     
+            delivered: false
+        };
+
+        const index =0;
+
+        //handlers
+        this.changeIndex = this.changeIndex.bind(this);
+        this.handleChange = this.handleChange.bind(this);        
+
+        //components        
+        //this.TrackingTable = this.TrackingTable.bind(this);
+        this.TrackingHeader = this.TrackingHeader.bind(this);
+        this.TrackingBody = this.TrackingBody.bind(this);
+        this.TrackingRow = this.TrackingRow.bind(this);
+        
+        //functions
+        //this.getOrders = this.getOrders.bind(this);
+    }
+
+    changeIndex(current){
+        this.index = current;
+        console.log("index setted - " + this.index);
+        //this.setState({index: current});
+    }
+
+    handleChange(event){
+        this.setState({delivered: event.target.checked});
+    }   
+
+    TrackingHeader(){    
+        return(        
+            <div id="tracking-table-header">
+                <div id="tracking-table-title-1">
+                    No.
+                </div>
+                <div id="tracking-table-title-2">
+                    Order code
+                </div>
+                <div id="tracking-table-title-3">
+                    Products list
+                </div>
+                <div id="tracking-table-title-4">
+                    Delivery date 
+                </div>
+                <div id="tracking-table-title-5">
+                    Status
+                </div>            
+            </div>
+        );
+    }
+    
+    TrackingBody(){        
+        const rows = [];
+
+        console.log(this.props.orders);
+     
+        if(this.props.orders){
+            for(let i = 0; i < 1/*this.props.orders.length*/; i++){
+                if(this.props.orders[i].status === 'delivered'){
+                    if(this.state.delivered === true){                        
+                        this.changeIndex(i);
+                        console.log("index: " + this.index);
+                        rows.push(<this.TrackingRow key={i}/>);
+                    }
+                }else{                    
+                    this.changeIndex(i);
+                    console.log("index- " +this.index);
+                    const obj = {index: i};/*{index: `${i}`}*/
+                    rows.push(<this.TrackingRow key={i} index={obj}/>);
+                }
+            }
+        }        
+
+        return(
+            <div id="tracking-table-body">
+                {this.props.orders &&  rows}
+            </div>
+        );
+    }
+
+    /*
+    number={index+1}
+    code={order.code}
+    products={order.products}
+    date={order.date}
+    status={order.status}
+    */
+    
+    TrackingRow(obj){
+        console.log("tracking-row-index: param -> " +obj.index);
+
+        return (
+            <div id="tracking-table-row">
+                <div id="tracking-table-title-1">
+                    {(obj.index)+1}
+                </div>
+                <div id="tracking-table-title-2">
+                    {this.props.orders[this.index].code}
+                </div>
+                <div id="tracking-table-title-3">
+                    {this.props.orders[this.index].products}
+                </div>
+                <div id="tracking-table-title-4">
+                    {this.props.orders[this.index].date}
+                </div>
+                <div id="tracking-table-title-5">
+                    {this.props.orders[this.index].status}
+                </div>            
+            </div>
+        );
+    }
+
+    render(){
+        return(
+            <div id="tracking-table-container">
+                <div id="tracking-table-filter">
+                    
+                </div>
+                <div id="tracking-table-content">
+                    <this.TrackingHeader/>
+                    <this.TrackingBody />
+                </div>            
+            </div>
+        );
+    }
+
+}
+
+export default Tracking;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+|||||||||||||||||||FUNCIONAL ACTUAL (Tracking.js) con selección de objetos a mostrar y check add
+
+
+import React from 'react'
+
+import './Tracking.css'
+import tracking_path from '../../../../assets/tracking-path.png'
+import Accordion from 'react-bootstrap/Accordion';
+
+function Tracking(props){
+    const orders = [
+        {code: '3543123',
+         products: 'peluche-gato-blanco, peluche-perro-bebe, amueblado-grey',
+         date: '04/28/2023',
+         status: 'uploading'},//el name a partir del codigo
+
+         {code: '8987643',
+         products: 'Juego-de-Sala-Sahara',
+         date: '04/30/2023',
+         status: 'packing'},
+
+         {code: '5632180',
+         products: 'Juego-de-Sala-Tucson, ',
+         date: '23/04/2023',
+         status: 'delivered'},
+
+         {code: '7898462',
+         products: 'Juego-de-Sala-Tucson, ',
+         date: '05/12/2023',
+         status: 'processing'},
+    ];//este ya con la DB será llenado con los ele que se consigan a partir del codigo de usuario que estará en las props
+
+    return (
+        <div className='tracking-container'>
+            <TrackingContent orders={orders}/>                        
+        </div>
+    );  
+}
+
+//solo te hace falta arreglar la apariencia del CHECK y hacer que se mantenga select... :v
+
+function TrackingContent(props){
+    return(
+        <div id="accordion-container">
+            <Accordion defaultActiveKey={['0']} alwaysOpen>
+                <Accordion.Item eventKey="0">                
+                    <Accordion.Header>
+                        <div id="accordion-header">
+                            Tracking Path
+                        </div>                        
+                    </Accordion.Header>                
+            
+                    <Accordion.Body>
+                        <TrackingPicture orders={props.orders}/>
+                    </Accordion.Body>
+                </Accordion.Item>             
+                <Accordion.Item eventKey="1">                
+                    <Accordion.Header>
+                        <div id="accordion-header">
+                            Tracking details
+                        </div>                        
+                    </Accordion.Header>                
+            
+                    <Accordion.Body>
+                        <TrackingTable orders={props.orders}/>
+                    </Accordion.Body>
+                </Accordion.Item>      
+            </Accordion>
+        </div>
+    );
+}
+
+function TrackingPicture(props){
+    const orders = getOrders(props.orders);//se recibirá de la DB
+
+    return (
+        <div id="tracking-picture">            
+            {orders &&                
+                orders.map((order, index) =>
+                    <TrackingPictureBuilder key={index}
+                                     code={order.code}
+                                     number={index}
+                                     status={order.status}
+                                     position={(order.status === 'processing')?1
+                                                 :((order.status === 'packing')?2
+                                                    :((order.status === 'uploading')?3
+                                                        :((order.status === 'carrying')?4:5)))} />
+                )
+            }            
+        </div>            
+    );
+}
+
+function getOrders(orders){
+    let selectedOrders = [];    
+    const today = new Date(Date.now()).toLocaleDateString();
+
+    for(let i =0; i < orders.length; i++){
+        if(orders.status !== 'delivered' || (orders.status === 'delivered' 
+            && orders.date === today)){//como van a ser DATE entonces no habrá problema como si fueran string, o sea en la DB creo que se almacenará como string, luego se convertirá a date
+                selectedOrders.push(orders[i]);
+        }
+        if(selectedOrders.length===3){
+            break;
+        }//si quietaras esto, se renderizarían más, solo que no lo dejé así, no porque esté dificil (pues solo tendría que add overflow y ya) sino porque no le encunetro sentido, a menos que pusiera funcioanlidad de mostrar cuando así en grafico el seleccionado(os) pues eso quiere ver el customer, estaaría bien como funcionalidad LUEGO DE TERMINAR!!!
+    }
+
+    return selectedOrders;
+}//hace que las img sean de no entregados o de entregados actuales
+
+function TrackingPictureBuilder(props){
+    return (
+        <div id="tracking-order">
+            <div className="tracking-code">
+                {props.code}
+            </div>
+            <div className="tracking-item">
+                <div id="tracking-item-mov" className={"position-"+`${props.position}`}>
+                    <span>{props.status}</span>
+                    <div id="truck-icon">                
+                        <i className="bi bi-truck"></i>
+                    </div>            
+                </div>                
+                <img id="path-img" src={tracking_path} alt={props.code}/>
+            </div>
+        </div>        
+    );
+}
+
+//NOTA: si fecha == date AND status == delivered THEN the image will be show,
+ //else just will appear on the table if the option is selected
+    //si no está seleccionada la opción, aunque se muestre la imagen, no será
+    //mostrada en la tabla
+
+    class TrackingTable extends React.Component{
+        constructor(props){
+            super(props);
+            this.state = {                     
+                delivered: false
+            };
+            
+            this.adviceChange = this.adviceChange.bind(this);        
+        }
+    
+        adviceChange(value){
+            this.setState({delivered: value});
+        }  
+
+        render(){
+            return (
+                <div id="tracking-table-container">
+                    <div id="tracking-table-filter">
+                        <TrackingFilter value={this.state.delivered} adviceChange={this.adviceChange}/>
+                    </div>
+                    <div id="tracking-table-content">
+                        <TrackingHeader/>
+                        <TrackingBody orders={this.props.orders} delivered={this.state.delivered}/>
+                    </div>            
+                </div>
+            );
+        }
+    }
+
+    class TrackingFilter extends React.Component{
+        constructor(props){
+            super(props);        
+            this.state = {                     
+                value: this.props.value
+            };
+
+            this.handleChange = this.handleChange.bind(this);        
+        }
+    
+        handleChange(event){            
+            this.props.adviceChange(event.target.checked);
+        }        
+    
+        render(){
+            return (
+                <div id="tracking-table-filters">
+                    <label>
+                        Delivered
+                        <input name="delivered"
+                               type="checkbox"
+                               checked={this.state.value}
+                               onChange={this.handleChange} />
+                    </label>
+                </div>
+            );
+        }
+    }
+    
+    function TrackingHeader(props){    
+        return(        
+            <div id="tracking-table-header">
+                <div id="tracking-table-title-1">
+                    No.
+                </div>
+                <div id="tracking-table-title-2">
+                    Order code
+                </div>
+                <div id="tracking-table-title-3">
+                    Products list
+                </div>
+                <div id="tracking-table-title-4">
+                    Delivery date 
+                </div>
+                <div id="tracking-table-title-5">
+                    Status
+                </div>            
+            </div>
+        );
+    }
+    
+    function TrackingBody(props){
+        const orders = props.orders;
+        const rows = [];
+
+        console.log(props.orders);
+     
+        if(orders){
+            for(let index = 0; index < orders.length; index++){
+                if(orders[index].status === 'delivered'){
+                    if(props.delivered === true){                                                
+                        console.log("index: " + index);
+                        rows.push( <TrackingRow key={index} 
+                                                number={index+1}
+                                                code={orders[index].code}
+                                                products={orders[index].products}
+                                                date={orders[index].date}
+                                                status={orders[index].status}/>);
+                    }
+                }else{                                        
+                    console.log("index- " + index);                    
+                    rows.push( <TrackingRow key={index} 
+                                            number={index+1}
+                                            code={orders[index].code}
+                                            products={orders[index].products}
+                                            date={orders[index].date}
+                                            status={orders[index].status}/>);
+                }
+            }
+        }                
+     
+        return(
+            <div id="tracking-table-body">
+                {orders && rows}
+            </div>
+        );
+    }
+    
+    function TrackingRow(props){
+        return (
+            <div id="tracking-table-row">
+                <div id="tracking-table-title-1">
+                    {props.number}
+                </div>
+                <div id="tracking-table-title-2">
+                    {props.code}
+                </div>
+                <div id="tracking-table-title-3">
+                    {props.products}
+                </div>
+                <div id="tracking-table-title-4">
+                    {props.date}
+                </div>
+                <div id="tracking-table-title-5">
+                    {props.status}
+                </div>            
+            </div>
+        );
+    }
+
+export default Tracking;
+
+//NOTA
+    - tienes un pequeño error con los path, no se por qué no me deja al momento
+      de presionar en track directamente a estar desde my-account/user, entrar allá
+      con esa misma dirección PERO como voy a hacer que al ir a my-account-user, se
+      redireccione a my-account-user-shop (en lugar de colocarle a ese path que tab
+      renderice shop, porque de hacer eso no eliminaría el problema, sino que lo cb
+      de forma) entonces no hay de qué preocuparse xD
+        ||| POR SI acaso no lograras hacer la redirección de manera exitosa
+                ||| la solución sería
+                        - quitar user como un segundo path y addlo a la main 
+                                - es decir my-account-user/[shop-tracking]
+                                    - auqnue de todos modos te tocaría hacer
+                                      la redirección, ahí digo que ya se podría
+                                      hacer que al ingresar la main
+                                        se renderice tb el componente
+
+//Ya arreglé lo de los path, era por estar usando <a> en lugar de <Link>
+
+//si hace la diferencia
+    //en el caso que vayas a usar "levantamiento de estado" 
+        //en el hijo, quien es el encargado de invocar al método del padre
+        //(para hacer el cambio en la variable de estado que el padre contiene
+        //pero se modif a través del hijo)
+            //NO hagas una repetición de la variable que está en el padre
+              tb en el hijo, quiero decir que en el hijo obten el valor directo
+              de las props a donde se envió el valor que estaba en la var del
+              padre (que es la única que debe existir) y para modificación, 
+              llama al respectivo método que el padre envió 
+                //puesto que aunque quieras hacer una var en el hijo a pesar
+                  de que el padre ya la tiene, te va a dar ERROR!!!
+                        //pues eso te sucedió con el CHECK, por eso no se marcaba
+                          el cuadrito y tampoco se desmarcaba, por haber hecho esa
+                          duplicación...
+
+

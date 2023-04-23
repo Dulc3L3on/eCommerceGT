@@ -1,0 +1,117 @@
+#signup-section{
+    width: 100%;
+    height: 132.7vh;
+    
+    padding: 125px 50px 5px 50px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    box-sizing: border-box;
+
+    background-color: #F2F3F7;
+    /*border: solid 1px crimson;*/
+}
+
+#signup-header{
+    height: 23%;
+    width: 27%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 30px;
+
+    box-sizing: border-box;
+    padding: 75px 10px;
+
+    border-radius: 35px 35px 0px 0px;
+
+    border-bottom: 2px solid rgba(128, 128, 128, 0.295);
+    background-color: #FFFFFF;
+}
+
+#image-div{
+    height: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 20px;
+}
+
+#logo{
+    height: 90px;
+    width: auto;
+}
+
+#signup-content{
+    height: 65%;
+    width: 27%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+    padding: 65px 25px;
+
+    border-radius: 0px 0px 35px 35px;
+    border-top: 1px solid rgba(128, 128, 128, 0.295);
+    background-color: white;
+}
+
+#firstName-div, #lastName-div, #username-div, #password-div{
+    height: 57px;
+    width: 470px;/*a la hora de usar el 150%, pro el hecho de tener % no me dejaba usar ni el margen ni que se centrara*/
+
+    margin-top: -10px;
+    /*margin-bottom: -25px;*/
+    /*margin-left: -30px;/*no funciona, a de ser por el bootstrap...*/
+
+    /*border: solid 1px goldenrod;*/
+    font-size: 100px;
+}
+
+#agreement-div{
+    width: 470px;
+    margin-bottom: 7px;
+}
+
+#error-div{
+    height: auto;
+    width: 470px;
+
+    box-sizing: border-box;
+
+    padding: 5px;
+
+    margin-top: -10px;
+    margin-bottom: 30px;/*no funciona y en este caso tampoc aunque le haya puedtoo en px la anchura...*/
+
+    color: red;
+    /*border: solid 1px slateblue;*/
+}
+
+#submit{
+    height: 57px;
+    width: 470px;
+
+    font-size: medium;
+
+    margin-bottom: 15px;
+}
+
+#footer{
+    width: 470px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

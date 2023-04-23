@@ -1,0 +1,48 @@
+.customer-container{
+    height: auto;
+    width: 100%;
+
+    border: 1px solid cadetblue;
+}
+
+#nav-bar-customer{
+    height: auto;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+}
+
+#nav-customer-options{
+    height: auto;
+    width: 66.6%;
+
+    display:flex;  
+    flex-direction: row; 
+
+    justify-content: right;/*horizontal*/
+    align-items: center;  
+
+    box-sizing: border-box;    
+
+    font-family: 'Poppins';
+    font-size: 23px;  
+
+    /*border: 1px solid yellow;*/
+}
+
+#shop, #track, #my-store{
+    height: 50px;
+    width: auto;
+
+    box-sizing: border-box;
+    padding: 11px;
+
+    display: flex;    
+    align-items: center;
+    
+    margin-right: 35px;
+
+    text-decoration: none;
+    /*border: 1px solid firebrick;*/
+}
