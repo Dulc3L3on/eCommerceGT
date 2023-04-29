@@ -17,12 +17,12 @@ function Tracking(props){
          status: 'packing'},
 
          {code: '5632180',
-         products: 'Juego-de-Sala-Tucson, ',
+         products: 'Juego-de-Sala-Tucson',
          date: '23/04/2023',
          status: 'delivered'},
 
          {code: '7898462',
-         products: 'Juego-de-Sala-Tucson, ',
+         products: 'Juego-de-Sala-Tucson',
          date: '05/12/2023',
          status: 'processing'},
     ];//este ya con la DB será llenado con los ele que se consigan a partir del codigo de usuario que estará en las props
@@ -92,9 +92,12 @@ function getOrders(orders){
     let selectedOrders = [];    
     const today = new Date(Date.now()).toLocaleDateString();
 
+    console.log("date: " + orders[2].date);
+    console.log("today: " + today);
+
     for(let i =0; i < orders.length; i++){
-        if(orders.status !== 'delivered' || (orders.status === 'delivered' 
-            && orders.date === today)){//como van a ser DATE entonces no habrá problema como si fueran string, o sea en la DB creo que se almacenará como string, luego se convertirá a date
+        if(orders[i].status !== 'delivered' | (orders[i].status === 'delivered' 
+            && orders[i].date === today)){//como van a ser DATE entonces no habrá problema como si fueran string, o sea en la DB creo que se almacenará como string, luego se convertirá a date
                 selectedOrders.push(orders[i]);
         }
         if(selectedOrders.length===3){
@@ -104,6 +107,8 @@ function getOrders(orders){
 
     return selectedOrders;
 }//hace que las img sean de no entregados o de entregados actuales
+
+//no funcionó el .compareTo(today) === 0 al app a orders[i]...
 
 function TrackingPictureBuilder(props){
     return (

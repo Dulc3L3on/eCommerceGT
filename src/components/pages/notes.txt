@@ -1662,3 +1662,16 @@ export default Tracking;
                           duplicación...
 
 
+//Product.js
+//dataList
+ - Reemplace un input normal por la etiqueta FIELD, para así tener la
+   posibilidad de tener el ErrorMessage available for category's input 
+
+
+  <input name = "datalist" className="form-control" 
+  list="datalistOptions" id="dataList" placeholder="Type the category"/>
+
+-Pero me da curiosidad de si en realidad esto tb podria haber funcionado
+ - ya se que el Field por el que reemplace esto si funciona, pero aquí???
+
+

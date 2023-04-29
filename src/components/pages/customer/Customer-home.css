@@ -25,13 +25,13 @@
 
     box-sizing: border-box;    
 
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif;
     font-size: 23px;  
 
     /*border: 1px solid yellow;*/
 }
 
-#shop, #track, #my-store{
+#store, #track, #my-store{
     height: 50px;
     width: auto;
 

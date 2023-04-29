@@ -1,0 +1,80 @@
+#off-canvas{
+    width: 505px;
+}
+#off-canvas-title{
+    font-family: 'Poppins', sans-serif;
+    font-size: 27px;  
+}
+
+#off-canvas-body{
+    max-height: 1189px !important;   
+    margin-bottom: 47px;        
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    overflow-y: auto;
+
+    box-sizing: border-box;
+    padding-left: 22px;
+
+    /*border: 1px solid crimson;*/
+}
+
+.cart-button-access{
+    height: 85px;
+    width: 85px;
+    
+    border-radius: 100%;
+
+    position: fixed;   
+    bottom: 30px;
+    left: 80px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 47px;
+    color: rgb(62, 141, 232);
+
+    background-color: white;
+    box-shadow: 2px 3px 4px 0.5px rgba(0, 0, 0, 0.2);
+
+    cursor: pointer;
+}
+
+#shopping-cart-footer-section{
+    height: auto;
+    width: 100%;/*sin position:absolute. el 100% es el dato a emplear*/
+
+    display: flex;
+    justify-content: center;        
+
+    margin-top: -7px;
+
+    /*border: 1px solid maroon;*/
+}
+
+#cancel-option, #payment-option{
+    height: auto;
+}
+
+#cancel-button, #payment-button{
+    height: 53px;
+    width: 155px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 21px;
+    color: white;
+
+    margin-right: 20px;
+    border-radius: 7px;
+    border: none;
+    /*border: 1px solid magenta;*/
+    background-color: #3E8DE8;
+}

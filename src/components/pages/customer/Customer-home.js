@@ -18,8 +18,8 @@ function NavBar(props){
     return(   
         <div id="nav-bar-customer">
             <div id="nav-customer-options">
-                <div id="shop">
-                    <Link to='shop'>Shop</Link>
+                <div id="store">
+                    <Link to='store'>Store</Link>
                 </div>
                 <div id="track">
                     <Link to='track'>Tracking</Link>                    

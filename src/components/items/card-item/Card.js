@@ -9,10 +9,16 @@ class Card_item extends React.Component{
         super(props);
         this.state = {};//hasta donde sé no será útil, por eso tenia algo en contra de la clase, pero bueno xD, solo NO TE COMPLIQUES!!! please
 
-        this.handleClick = this.handleClick.bind(this);
+        this.handleAddClick = this.handleAddClick.bind(this);
+        this.handleSeeClick = this.handleSeeClick.bind(this);
     }
 
-    handleClick(event){
+    handleAddClick(event){
+        console.log('Card: product -> '+ this.props.product.item.name);
+        this.props.addListener(this.props.product);
+    }
+
+    handleSeeClick(event){
         //se enviará a la PAGE de producto        
     }
 
@@ -23,16 +29,26 @@ class Card_item extends React.Component{
                 <img id="image" src={this.props.product.item.image} alt={this.props.product.item.name} />
             </div>
             <div id="details-section">
-                <h5>{this.props.product.item.name}</h5>
+                <div id="title-card-element">
+                    <div id="name-card-element">
+                        {this.props.product.item.name} - 
+                    </div>
+                    <div id="brand-card-element">
+                         {this.props.product.item.brand}
+                    </div>                    
+                </div>                
+                <div id="category-section">
+                    <p>[ {this.props.product.item.category} ]</p>
+                </div>
                 <div id="features-section">
                     <p>{this.props.product.item.features}</p>
                 </div>
                 <div id="access-section">
-                    <div>
-                        <p>Price Q.{this.props.product.item.price}</p>
-                    </div>
-                    <div>
-                        <p>available: {this.props.product.available}</p>
+                    <div id="price-card-element">
+                        <p>Price Q.{this.props.product.price}</p>
+                    </div>                    
+                    <div id="available-card-element">
+                        <p>Available: {this.props.product.available}</p>
                     </div>
                 </div>            
                 <div id="owner-section">
@@ -41,13 +57,25 @@ class Card_item extends React.Component{
                     </div>                
                 </div>            
             </div>
-          </div>
+            <CartOptions handleAddClick={this.handleAddClick} handleSeeClick={this.handleSeeClick}/>
+          </div>          
         );  
     }     
 
 }
 
-
+function CartOptions(props){
+    return (
+        <div id="cart-options">
+            <div id="cart-option-add" onClick={props.handleAddClick}>
+                <i className="bi bi-cart-plus"></i>
+            </div>
+            <div id="cart-option-see" onClick={props.handleSeeClick}>
+                <i className="bi bi-eye-fill"></i>
+            </div>
+        </div>
+    );
+}
  
 export default Card_item;
 //<button onClick={() => addToCart(product)}>Agregar al carrito</button> It will be used on the screen of the product detail

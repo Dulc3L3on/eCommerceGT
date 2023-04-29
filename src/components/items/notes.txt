@@ -5,3 +5,39 @@ se necesitan MANY por lo tanto se emplea
 un FOR para generarlos.
 
 \\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+|||||||||||CartItem
+- Después de preguntarme, por qué rayos lo hice así :v 
+  puesto que vien pude haber colocado de una ve un input:[number] :v 
+
+
+  <div id="cart-aquisition-section">
+                    <div id="input-aquisition-element">
+                        <input type="text" id="input-aquisition-item" name="input-aquisition-item"/>
+                    </div>
+                    <div id="buttons-aquisition-element">
+                        <button id="increase-quantity">+</button>
+                        <button id="decrease-quantity">-</button>
+                    </div>
+                </div>
+
+./Css respectivo (al menos las partes involuradas directamente xdxd)
+
+#buttons-aquisition-element{
+    height: 100%;
+    width: 30%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;    
+}
+
+#input-aquisition-item{
+    width: 100%;
+    height: 100%;
+}
+
+#increase-quantity, #decrease-quantity{
+    height: 37px;
+}

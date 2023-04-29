@@ -30,14 +30,14 @@
     height: 85%;
     width: 1900px;/*1192*//*2000 pero por adv se disminuyo to 1900*/
     
-    padding: 10px 25px 25px 25px;
-
-    border: solid 1px;
-    box-sizing: border-box;/*para que no se salga de los bordes*/
-
     display: flex;
     flex-direction: column;
-    /*align-items: center;/*justify-content: center;*/    
+    /*align-items: center;/*justify-content: center;*/        
+
+    box-sizing: border-box;/*para que no se salga de los bordes*/
+    padding: 10px 25px 25px 25px;
+    
+    /*border: solid 1px;*/
 }
 
 .sticky{
@@ -225,25 +225,14 @@
     box-sizing: border-box;
 
     display: grid;
-    grid-template-columns: repeat(5, auto);    
+    grid-template-columns: repeat(4, auto);    
     column-gap: 70px;
     row-gap: 50px;
 
-    border: solid 1px orange;/*I has to search why it still over the size, i think it is because of the heigh, maybe I have to write a max...*/
+    /*border: solid 1px orange;*//*I has to search why it still over the size, i think it is because of the heigh, maybe I have to write a max...*/
 
     overflow-y: visible;
 }
 
-.footer-div{
-    height: 75px;
-    width: 75px;
-    border-radius: 100%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    background-color: white;
-}
 
 /*Arreglar overflow, arrelgar select, arreglar apariencia login/sig in*/

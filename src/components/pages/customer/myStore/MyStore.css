@@ -12,7 +12,16 @@
     background-color: #F2F3F7;
 }
 
+#my-store-table-container{
+    max-height: 1000px !important;   
+    margin-bottom: 20px;    
+
+    overflow-y: auto;/*hidden, solo oculta el contenido extra, sin barras de desplazamiento...*/
+}
+
 table{
+    max-height: 980px !important;
+
     background-color: white;
     border: 1px solid black;
 }
@@ -29,7 +38,9 @@ tr:hover{
 }
 
 table td{
-    height: 120px;  
+    /*height: 110px;*/
+    min-height: 110px;  
+    max-height: 110px;  
 
     padding: 25px;
 }
@@ -68,13 +79,32 @@ table th:last-child, td:first-child {
 }
 
 #footer-section{
+    position: absolute;
+    
+
+    height: auto;
+    width: 63.4%;/*sin position:absolute. el 100% es el dato a emplear*/
+
+    display: flex;
+    justify-content: flex-end;    
+
+    /*border: 1px solid maroon;*/
+}
+
+#more-products{
     height: 75px;
     width: 75px;
     border-radius: 100%;
 
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center;   
+
+    font-size: 50px;    
+    color: black;
 
     background-color: white;
+    box-shadow: 2px 3px 4px 0.5px rgba(0, 0, 0, 0.2);/*box-shadow: 2px 3px 25px rgba(0, 0, 0, 0.6);*/
+
+    cursor: pointer;
 }

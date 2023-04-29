@@ -6,6 +6,8 @@ import adv2 from '../../../../assets/6.jpg'
 import adv3 from '../../../../assets/7.jpg'
 import adv4 from '../../../../assets/8.jpg'
 
+import ShoppingCart from '../../../dialogs/Shopping-cart/Shopping-cart';
+
 //import teddy from '../../../../assets/oso-de-peluche-gigante.jpg'
 
 import Carrousel from '../../../extras/Carousel';
@@ -205,91 +207,107 @@ function SearchSection(props){
         <div className={`${sticky ? "sticky after-search-section": ""}`}>
             <SearchContentSection/>
         </div>
-    );
-    
+    );    
 }
 
-function ContentSection(props){
-    const cards = getCards();
+class ContentSection extends React.Component{    
+    constructor(props){
+        super(props);
+        this.state = {
+            addedProduct: null            
+        };
 
-    return (
-        <div id="content-section">
-            {cards}         
-            <ScrollToTop smooth color="#000" />   
-        </div>
-    );
+        this.handleAddedProduct = this.handleAddedProduct.bind(this);        
+        //hasta donde veo el delete debe estar en el CART, proque las op de eli cada ele esta en él, al igual que ele eliminado general (cancel)
+    }
+
+    handleAddedProduct(newProduct){
+        console.log('Store: product -> '+ newProduct.item.name);
+
+        let desiredProduct = {
+            product: newProduct,
+            quantity: 1 //defaultValue
+        }
+        console.log('Store: Desired product -> '+ desiredProduct.product.item.name);
+
+       this.setState({addedProduct: desiredProduct});
+    }//recibe un objeto que será enviado desde las Card, 
+    //como el Shopping cart siempre recibirá este estado cada vez que se add uno, entonces el cart debe ir acumulando lo que tiene más lo que recibe, pues esta var solo tendrá lo más reciente...
+
+    render(){
+        return (
+            <div id="content-section">
+                {getCards(this.handleAddedProduct) 
+                    && getCards(this.handleAddedProduct)}
+                <ShoppingCart action='add' cartItem={this.state.addedProduct} />
+                <ScrollToTop smooth color="#000" />   
+            </div>
+        );
+    }    
 }
 
-function getCards(/*none*/){
-    const cards = [
+function getCards(addListener){//si no funciona, volveras esto un componente, luego cb de forma función a comp, y si no entonces meteras esto como comp, en la clase
+    const products = [
         /*{item:
             {image: {teddy}, name: 'teddy', features: 'color: marron; tamaño: 1mt', category: 'peluche'},
          price: 205.00, available: 8,
          seller: {id: 5, image: '../../../../assets/sellers/seller5', name: "Lucila Hernandez"}},*/
         {item: 
-            {image: '../../../assets/products/peluche-gato-blanco.jpg', name: 'kitty', features: 'color: marron; tamaño: 28cm', category: 'peluche'},         
+            {image: '../../../assets/products/peluche-gato-blanco.jpg', name: 'Kitty', features: 'color: marron; tamaño: 28cm', category: 'peluche', brand: 'Teddy'},         
          price: 145.00, available: 11,
          seller: {id: 5, image: '../../../assets/sellers/seller5', name: "Lucila Hernandez"}},
          {item: 
-            {image: '../../../../assets/products/peluche-perro-bebe.jpg', name: 'puppy', features: 'color: marron; tamaño: 25cm', category: 'peluche'},
+            {image: '../../../../assets/products/peluche-perro-bebe.jpg', name: 'Puppy', features: 'color: marron; tamaño: 25cm', category: 'peluche', brand: 'Teddy'},
          price: 160.00, available: 11,
          seller: {id: 5, image: '../../../../assets/sellers/seller5', name: "Lucila Hernandez"}},
         {item: 
-            {image: '../../../../assets/products/cdda31f07b0a1b8a5acb097a47160f66.jpg', name: 'rosaline desings', features: 'color: salmon; tallas: S, M, L, XL', category: 'ropa-dama'},                  
+            {image: '../../../../assets/products/cdda31f07b0a1b8a5acb097a47160f66.jpg', name: 'rosaline desings', features: 'color: salmon; tallas: S, M, L, XL', category: 'ropa-dama', brand: 'Peppe'},
          price: 170.50, available: 12,
          seller: {id: 1, image: '../../../../assets/sellers/seller1,', name: "Reginalda Ramos"}},
         {item: 
-            {image: '../../../../assets/products/adidas-terrex-ax3-whi_6.jpg', name: 'continental terrex', features: 'color: gris; tallas: 37, 38, 39', category: 'zapatos-deportivos'},
+            {image: '../../../../assets/products/adidas-terrex-ax3-whi_6.jpg', name: 'continental terrex', features: 'color: gris; tallas: 37, 38, 39', category: 'zapatos-deportivos', brand: 'Adidas'},
          price: 550.90, available: 5,
          seller: {id: 3, image: '../../../../assets/sellers/seller3,', name: "Estuardo Medina"}},
          {item: 
-            {image: '../../../../assets/products/reloj-hombre-tommy-hilfiger-acero-inoxidable.png', name: 'Tommy watch', features: 'color: gris-azul; forma: esferica', category: 'accesorios-caballero'},
+            {image: '../../../../assets/products/reloj-hombre-tommy-hilfiger-acero-inoxidable.png', name: 'Tommy watch', features: 'color: gris-azul; forma: esferica', category: 'accesorios-caballero', brand: 'Tommy'},
          price: 750.00, available: 5,
          seller: {id: 3, image: '../../../../assets/sellers/seller3,', name: "Estuardo Medina"}},         
          {item: 
-            {image: '../../../../assets/products/49700493_1.jpeg', name: 'Tommy watch', features: 'color: azul-cafe; forma: esferica', category: 'accesorios-caballero'},
+            {image: '../../../../assets/products/49700493_1.jpeg', name: 'Tommy watch', features: 'color: azul-cafe; forma: esferica', category: 'accesorios-caballero', brand: 'Tommy'},
          price: 815.00, available: 5,
          seller: {id: 3, image: '../../../../assets/sellers/seller3,', name: "Estuardo Medina"}},
         {item: 
-            {image: '../../../../assets/products/1654027407906.jpeg', name: 'water bottle 5000', features: 'color: azul, amarillo, anaranjado, rosado; capacidad: 500ml', category: 'implementos-cocina'},
+            {image: '../../../../assets/products/1654027407906.jpeg', name: 'water bottle 5000', features: 'color: azul, amarillo, anaranjado, rosado; capacidad: 500ml', category: 'implementos-cocina', brand: 'Oster'},
          price: 57.00, available: 20,
          seller: {id: 2, image: '../../../../assets/sellers/seller3,', name: "Estuardo Medina"}},
-         {item: 
-            {image: '../../../../assets/products/amueblado-grey.jpg', name: 'monsenior', features: 'color: grey; items: 2', category: 'hogar-muebles'},
-         price: 5700.00, available: 5,
+        {item: 
+           {image: '../../../../assets/products/amueblado-grey.jpg', name: 'monsenior', features: 'color: grey; items: 2', category: 'hogar-muebles', brand: 'Premiun'},
+        price: 5700.00, available: 5,
+        seller: {id: 2, image: '../../../../assets/sellers/seller2,', name: "Franchesco Mariato"}},
+        {item: 
+           {image: '../../../../assets/products/Juego-de-Sala-Sahara.jpg', name: 'monsenior', features: 'color: gray-blue-pink-gold; items: 2', category: 'hogar-muebles', brand: 'Premiun'},
+        price: 8500.00, available: 5,
+        seller: {id: 2, image: '../../../../assets/sellers/seller2,', name: "Franchesco Mariato"}},
+        {item: 
+          {image: '../../../../assets/products/Juego-de-Sala-Tucson.jpg', name: 'monsenior', features: 'color: gray; items: 2', category: 'hogar-muebles', brand: 'August'},
+        price: 8350.00, available: 5,
+        seller: {id: 2, image: '../../../../assets/sellers/seller2,', name: "Franchesco Mariato"}},
+        {item: 
+          {image: '../../../../assets/products/Juego-de-Sala-Tucson.jpg', name: 'monsenior', features: 'color: gray; items: 2', category: 'hogar-muebles', brand: 'Mezcle'},
+         price: 8350.00, available: 5,
          seller: {id: 2, image: '../../../../assets/sellers/seller2,', name: "Franchesco Mariato"}},
          {item: 
-            {image: '../../../../assets/products/Juego-de-Sala-Sahara.jpg', name: 'monsenior', features: 'color: gray-blue-pink-gold; items: 2', category: 'hogar-muebles'},
-         price: 8500.00, available: 5,
-         seller: {id: 2, image: '../../../../assets/sellers/seller2,', name: "Franchesco Mariato"}},
-         {item: 
-            {image: '../../../../assets/products/Juego-de-Sala-Tucson.jpg', name: 'monsenior', features: 'color: gray; items: 2', category: 'hogar-muebles'},
-          price: 8350.00, available: 5,
-          seller: {id: 2, image: '../../../../assets/sellers/seller2,', name: "Franchesco Mariato"}},
-          {item: 
-            {image: '../../../../assets/products/Juego-de-Sala-Tucson.jpg', name: 'monsenior', features: 'color: gray; items: 2', category: 'hogar-muebles'},
-          price: 8350.00, available: 5,
-          seller: {id: 2, image: '../../../../assets/sellers/seller2,', name: "Franchesco Mariato"}},
-          {item: 
-            {image: '../../../../assets/products/Juego-de-Sala-Tucson.jpg', name: 'monsenior', features: 'color: gray; items: 2', category: 'hogar-muebles'},
-          price: 8350.00, available: 5,
-          seller: {id: 2, image: '../../../../assets/sellers/seller2,', name: "Franchesco Mariato"}}        
+           {image: '../../../../assets/products/Juego-de-Sala-Tucson.jpg', name: 'monsenior', features: 'color: gray; items: 2', category: 'hogar-muebles', brand: 'Meteor'},
+         price: 8350.00, available: 5,
+         seller: {id: 2, image: '../../../../assets/sellers/seller2,', name: "Franchesco Mariato"}}        
     ];//it will be replaced by a function of a DB
 
     return(
-        cards.map((card, index) => 
-            <Card key={index} product={card}/>)
+        products.map((product, index) => 
+            <Card key={index}
+                  product={product}
+                  addListener={addListener}/>)
     );
 }//se va a enviar a una clase de "lógica", puesto que tiene interaccion mínima con componentes
-
-function Footer(props){
-    return (
-        <div className="footer-div">
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" className="bi bi-arrow-down" viewBox="0 0 16 16">
-                <path fillRule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/>
-            </svg>
-        </div>
-    );
-}
 
 export default Store;

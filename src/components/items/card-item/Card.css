@@ -1,6 +1,6 @@
 .card-item{
-    height: 470px;
-    width: 300px;
+    height: 575px;
+    width: 390px;
 
     padding: 20px;
     /*margin-right: 70px;*/
@@ -13,8 +13,18 @@
     background-color: #ffffff;
 }
 
+.card-item:hover #cart-option-add{
+    visibility: visible;
+    cursor: pointer;
+}
+
+.card-item:hover #cart-option-see{
+    visibility: visible;
+    cursor: pointer;
+}
+
 #image-section{
-    height: 47%;
+    height: 51%;
     width: 100%;
 
     display: flex;
@@ -32,7 +42,7 @@
 }
 
 #details-section{
-    height: 52%;
+    height: 51%;
     width: 100%;
 
     display: flex;
@@ -43,14 +53,37 @@
     box-sizing: border-box;
 }
 
+#title-card-element{
+    display: flex;
+    flex-direction: row;    
+
+    margin-top: 15px;
+    margin-bottom: 3px;
+
+    font-size: 20.5px;
+}
+
+#name-card-element{
+    font-weight: 500;
+}
+
+#brand-card-element{
+    color: rgb(62, 141, 232);
+}
+
+#category-section{
+    font-weight: 100;
+    color: rgb(63, 62, 62);
+}
+
 #features-section{
-    height: 60%;
+    height: 42%;
     width: 100%;
 
     display: flex;
-    align-items: center;
+    align-items: center;    
 
-    text-overflow: ellipsis;
+    text-overflow: ellipsis;/*It is going to be util when the text is more than the space*/
     overflow: hidden;    
 }
 
@@ -60,7 +93,15 @@
 
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: center;    
+
+    font-weight: 400;
+    color: #111B58;
+    text-decoration: underline;
+}
+
+#price-card-element{
+    margin-right: 25px;
 }
 
 #owner-section{
@@ -69,4 +110,41 @@
 
     display: flex;
     align-items: center;
+}
+
+/*#cart-options-div{
+    height: 125px;
+    width: auto;
+
+    box-sizing: border-box;    
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;   
+}*/
+
+#cart-option-add, #cart-option-see{
+    height:57px;
+    width: 57px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 100%;    
+    
+    position: relative;       
+    left: 285px;
+    top: -500px;
+
+    margin-bottom: 15px;
+
+    font-size: 30px;
+    background-color: white;
+    box-shadow: 2px 3px 4px 0.5px rgba(0, 0, 0, 0.2);
+
+    cursor: pointer;    
+    visibility: hidden;
 }

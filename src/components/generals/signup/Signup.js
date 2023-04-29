@@ -58,7 +58,7 @@ function Signup(props){
                        className="input-group-text">
                         Last Name
                 </label>
-                <Field id="lastName" name="lastName" className="form-control" placeholder="First name" />
+                <Field id="lastName" name="lastName" className="form-control" placeholder="Last name" />
             </div>
             <div id="error-div">
                <ErrorMessage name="lastName" id="error-div"/>

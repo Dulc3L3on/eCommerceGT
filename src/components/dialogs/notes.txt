@@ -4,3 +4,1029 @@ Aqui van todas las cosas "flotantes" que actuan como
 diálogos modales.
 
 \\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+SHOPPING-Cart
+Previo a usar React-bootstrap
+puesto que Bootstrap no funcionó
+
+
+import React from 'react';
+
+class ShoppingCart extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {};
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(event){
+
+  }
+
+  render(){
+    return(
+      <div id="cart-container">
+        <Footer/>        
+            
+        <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Offcanvas with body scrolling</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <p>Try scrolling the rest of the page to see this option in action.</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+function Footer(props){
+  return (
+      <div className="footer-div" data-bs-toggle="offcanvas">
+          <i className="bi bi-cart3"></i>                      
+      </div>
+  );
+}//<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Enable body scrolling</button>
+
+
+export default ShoppingCart;
+
+/*const Cart = ({ cartItems, removeFromCart, clearCart }) => {
+  return (
+    <div className="cart">
+      <h2>Carrito de Compras</h2>
+      {cartItems.length === 0 ? (
+        <p>No hay productos en el carrito.</p>
+      ) : (
+        <div>
+          <ul>
+            {cartItems.map((product) => (
+              <li key={product.id}>
+                {product.name} - {product.price}
+                <button onClick={() => removeFromCart(product)}>Eliminar</button>
+              </li>
+            ))}
+          </ul>
+          <p>Total: {}</p>
+          <button onClick={() => clearCart()}>Vaciar carrito</button>
+        </div>
+      )}
+    </div>
+  );
+};*/
+
+
+////SHOPING-CART
+  - Antes de ver el tutorial de React acerda de los arrays
+
+  class ShoppingCart extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      products: [],
+
+      action: '',//del, add, cancel, pay[este será un link entonces no va aquí xD]
+      cartItem: this.props.addedProduct
+    };
+
+    this.handleCartState = this.handleCartState.bind(this);
+  }
+
+  handleCartState(newState, product){
+    this.setState({action: newState});
+  }//por el momento solo tenia pensado guardar los nombre puesto solo para que se actualice el carrito...
+  //este se va a enviar a los hijos (items/articulos) para que así cuando se presione el boton eli/Add se actualice el estado y listo
+    //para hacer más facil la cosa, agrega ADD a la store, para que así se sepa que producto se envia...
+
+  render(){
+    return(
+      <div id="cart-container">
+          <OffCanvasExample cartListener = {this.handleCartState}/>
+      </div>     
+    );
+  }
+}
+//y de ver el uso simplificado de "use-state"
+
+
+PREVIO  a al fin usar COOKIES :Vaciar
+ componentDidMount() {    
+    this.handleCartState('add', this.props.cartItem);    
+  }  
+
+  handleCartState(action, product){
+    if(action === 'add'){
+      //console.log('producto [agregado-state]: '+ item.item.name);      
+      this.setState({products: productsBackup});
+      console.log('producto [prev]: '+this.state.products.length);
+
+      this.setState({products: this.state.products.push(<CartItem index={this.state.products.length} product={product}/>)});
+      console.log('producto [agregado-state]: '+this.state.products.length);
+
+      productsBackup.push(product);
+      console.log('Backup: '+ productsBackup.length);
+    }else{//delete
+      this.setState({products: this.state.products.pop(<CartItem item={product}/>)});
+      console.log('producto [eliminado]: '+product);
+    }    
+  }//Invocacion: dir: CartItem (delete), indir: Store-PADRE(add)
+
+
+
+  //despues de usar COOKIES y antes de usar local-storage (porque por la situación e
+    es más aplicable, además que me hice bolas xD)
+
+    import React from 'react';
+
+import './Shopping-cart.css'
+
+import { useState } from 'react';
+import Offcanvas from 'react-bootstrap/Offcanvas';
+import CartItem from '../../items/cart-item/CartItem';
+import Cookies from 'universal-cookie'
+
+class ShoppingCart extends React.Component{
+  constructor(props){
+    super(props);
+
+    const cookies = new Cookies();
+    cookies.remove('products-cart');
+
+    this.state = {
+      products: []//cb por hecho de padre y de los items
+
+      /*action está en props*/
+      /*cartItem está en props*///este será el que va a ser eli(Cart/Hijo) o add(padre)
+    };
+    
+    this.handleCartState = this.handleCartState.bind(this);
+    this.initState = this.initState.bind(this);
+
+    this.initState(cookies);
+
+    console.log('props: ' + this.state.cartItem);    
+  }
+  
+  initState(cookies){
+    if(this.props.action === 'add'){
+      console.log('al menos si entre');
+      console.log(this.props.cartItem);
+
+      if(!cookies.get('products-cart') && !this.props.cartItem){
+        this.state.products = new Array();
+
+        console.log('NO-NO: new Array()');
+      }
+      else if(!cookies.get('products-cart') && this.props.cartItem){
+        let array = [<CartItem index={0} product={this.props.cartItem}/>]; 
+        
+        cookies.set('products-cart', array, {path: '/'});
+        
+        this.state.products = array;
+        
+        console.log('NO-prop');
+        console.log(array[0]);
+      }
+      else if(cookies.get('products-cart') && !this.props.cartItem){
+        this.state.products = cookies.get('products-cart');
+
+        console.log('CART: productos [cookies]: '+ cookies.get('products-cart')); 
+        console.log('coo-NO');
+      }else{
+          cookies.get('products-cart').push(<CartItem index={0} product={this.props.cartItem}/>);
+          this.state.products = cookies.get('products-cart');
+
+          console.log('CART: productos [cookies]: '+ cookies.get('products-cart')); 
+          console.log('coo-prop');
+      }
+    }
+    
+
+    /*
+      NO-NO: new Array()
+      NO-prop: new Array().push(prop) -> coo.set(array) -> state = array
+      Coo-NO: state = coo
+      
+      Coo-prop: coo.push(prop) -> state = coo
+      
+    */
+  }
+
+  handleCartState(action, product){
+    const cookies = new Cookies();
+    
+    console.log('IF: action === add-> ' + (action === 'add'));
+    console.log('IF:  && product -> ' + (product));
+
+    if(action === 'add' && product){
+      if(cookies.get('products-cart')){
+        cookies
+          .get('products-cart')
+            .push(<CartItem index={this.state.products.length} product={product}/>);
+          
+        this.setState({products: cookies.get('products-cart')});
+        console.log('IF:  && product -> ' + (product.item.name));
+      }else{
+        let init = new Array(<CartItem index={0} product={product}/>);
+        cookies.set('products-cart', init);
+      }
+
+      console.log('\nCART: productos [param]: '+ product.item.name);
+      console.log('CART: productos [cookies]: '+ cookies.get('products-cart'));      
+      console.log('CART: producto [agregado-state]: '+this.state.products.length);      
+    }else if(action === 'delete' && product){//delete
+      this.setState({products: this.state.products.pop(<CartItem item={product}/>)});
+      console.log('producto [eliminado]: '+product);
+    }    
+  }//Invocacion: dir: CartItem (delete), indir: Store-PADRE(add)
+
+  //Recuerda que con el blog, esto te paso y lo que hiciste en ese entonce sfue usar el estado previo para así guardar una cadena separada con comas, la cosa es al momento de delete...
+
+  render(){
+    return(
+      <div id="cart-container">
+          <OffCanvasExample cartListener = {this.handleCartState}/>
+      </div>     
+    );
+  }
+}
+
+function OffCanvasExample(props) {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const toggleShow = () => setShow((s) => !s);
+
+  const items = getItemsList(props.cartListener);
+
+  return (
+    <>
+      <CartButton onClick={toggleShow}/>  
+      
+      <Offcanvas id="off-canvas" show={show} onHide={handleClose} scroll = {true} backdrop = {false}>
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>My cart</Offcanvas.Title>
+          </Offcanvas.Header>
+        <Offcanvas.Body>
+          Items. itmes, super duper hiper mega texto solo para ver si tiene widt: auto;
+          pos no, deplano que voy a tener que modif
+        </Offcanvas.Body>
+      </Offcanvas>            
+    </>
+  );
+}
+
+function CartButton(props){
+  return (
+      <div className="footer-div me-2" onClick={props.onClick}>
+          <i className="bi bi-cart3"></i>                      
+      </div>
+  );
+}//<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Enable body scrolling</button>
+
+function getItemsList(cartListener){
+
+
+}
+
+export default ShoppingCart;
+
+/*const Cart = ({ cartItems, removeFromCart, clearCart }) => {
+  return (
+    <div className="cart">
+      <h2>Carrito de Compras</h2>
+      {cartItems.length === 0 ? (
+        <p>No hay productos en el carrito.</p>
+      ) : (
+        <div>
+          <ul>
+            {cartItems.map((product) => (
+              <li key={product.id}>
+                {product.name} - {product.price}
+                <button onClick={() => removeFromCart(product)}>Eliminar</button>
+              </li>
+            ))}
+          </ul>
+          <p>Total: {}</p>
+          <button onClick={() => clearCart()}>Vaciar carrito</button>
+        </div>
+      )}
+    </div>
+  );
+};*/
+
+
+
+|||||||||||||||||||||||||||||||||||||||
+ANTES DE PROBAR y ver que no se actualiza sino hasta que cb algo en el script :v 
+[esto lo hice a base del video, pero ahorita voy a aplicar lo que platzi dice]
+
+import {React, useEffect} from 'react';
+
+import './Shopping-cart.css'
+
+import { useState } from 'react';
+import { useLocalStorage_arrays } from '../../../hooks/useLocalStorage';
+import Offcanvas from 'react-bootstrap/Offcanvas';
+import CartItem from '../../items/cart-item/CartItem';
+
+function ShoppingCart(props){
+  const [products, setProducts] 
+      = useLocalStorage_arrays('cart-products',
+          JSON.parse(window.localStorage.getItem('cart-products')))//Este quedo en lugar del handler, puesto que se encarga de hcaer lo del localStorage , antes tenia - window.localStorage.getItem('cart-products'), creo que es lo ideal, porque si no hay prop pero si listado ahí se arruinaria la cosa...
+
+          console.log("cart item: "+props.cartItem);
+
+          useEffect(()=>{
+            setProducts(props.cartItem);
+          }, [])
+          
+  return(
+    <div id="cart-container">      
+      {<ProductsList products={products}/>}
+    </div>     
+  );
+}
+
+//recuerda que el handler lo enviabas a los hijos porque como con ellos se puede hacer el delete
+
+function ProductsList(props) {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const toggleShow = () => setShow((s) => !s);
+
+  console.log('Products list: '+ props.products);
+  console.log(props.products);
+  const items = ((props.products)?getItemsList(props.products):null);
+
+  return (
+    <>
+      <CartButton onClick={toggleShow}/>  
+      
+      <Offcanvas id="off-canvas" show={show} onHide={handleClose} scroll = {true} backdrop = {false}>
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>My cart</Offcanvas.Title>
+          </Offcanvas.Header>
+        <Offcanvas.Body>
+          {items && items}
+        </Offcanvas.Body>
+      </Offcanvas>            
+    </>
+  );
+}
+
+function CartButton(props){
+  return (
+      <div className="footer-div me-2" onClick={props.onClick}>
+          <i className="bi bi-cart3"></i>                      
+      </div>
+  );
+}//<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Enable body scrolling</button>
+
+function getItemsList(cartItems){   
+  let items = cartItems.map((item, index) => (
+    <CartItem key={index} item={item}/>
+  ))
+
+  return (    
+    <div id="products-list-body">
+      {items}
+    </div>
+  );
+}
+
+export default ShoppingCart;
+
+/*const Cart = ({ cartItems, removeFromCart, clearCart }) => {
+  return (
+    <div className="cart">
+      <h2>Carrito de Compras</h2>
+      {cartItems.length === 0 ? (
+        <p>No hay productos en el carrito.</p>
+      ) : (
+        <div>
+          <ul>
+            {cartItems.map((product) => (
+              <li key={product.id}>
+                {product.name} - {product.price}
+                <button onClick={() => removeFromCart(product)}>Eliminar</button>
+              </li>
+            ))}
+          </ul>
+          <p>Total: {}</p>
+          <button onClick={() => clearCart()}>Vaciar carrito</button>
+        </div>
+      )}
+    </div>
+  );
+};*/
+
+||||Y el respectivo Hook(useLocalStorage)
+
+import {useState} from 'react'
+
+export function useLocalStorage_arrays(key, initialValue){
+    const [storedValue, setStoredValue] = useState(() =>{
+        try{
+            const item = window.localStorage.getItem(key)
+            return (item ? JSON.parse(item) : initialValue)
+        }catch(error){
+            return initialValue
+        }
+    })//"GET", que será asignada a la var que externa que tb posee su set...
+
+    const setValue = value => {
+        console.log('value: '+ value)                      
+
+        try{
+            if(value){
+                let array = []
+
+                console.log("(window.localStorage.getItem)" 
+                                + ((window.localStorage.getItem(key))
+                                        ?JSON.parse(window.localStorage.getItem(key)):[]))
+                
+                array = ((window.localStorage.getItem(key))
+                                ?JSON.parse(window.localStorage.getItem(key))
+                                :[])
+                array.push(value)                
+
+                setStoredValue(array)
+                window.localStorage.setItem(key, JSON.stringify(array))  
+                console.log('array: '+array)              
+                console.log(array)
+            }            
+        }catch(error){
+            console.log(error)
+        }
+    }
+
+    return [storedValue, setValue];
+}
+
+
+|||||| Previo a darme cuenta de que el usar DELETE en una función 
+       normal de JS, me lanza este error, puesto que los Hooks tienen
+       algunas reglas, como 
+        - estar al principio del cuerpo de las funciones que 
+            - son: Componentes o Hooks
+        - no pueden estar dentro de funciones JS normales
+        - no pueden estar dentro de loops (no fue mi caso)
+        - no pueden ser llamadas en distintos puntos en el tiempo
+          debe ser en el mismo c/v que se exe
+  
+  import {React, useEffect} from 'react';
+import {Link} from 'react-router-dom'
+
+import './Shopping-cart.css'
+
+import { useState } from 'react';
+import { useLocalStorage_arrays } from '../../../hooks/useLocalStorage';
+import Offcanvas from 'react-bootstrap/Offcanvas';
+import CartItem from '../../items/cart-item/CartItem';
+
+function ShoppingCart(props){
+  const [products, setProducts, deleteProducts] 
+      = useLocalStorage_arrays('cart-products',
+          JSON.parse(window.localStorage.getItem('cart-products')))//Este quedo en lugar del handler, puesto que se encarga de hcaer lo del localStorage , antes tenia - window.localStorage.getItem('cart-products'), creo que es lo ideal, porque si no hay prop pero si listado ahí se arruinaria la cosa...
+
+          console.log("cart item: "+props.cartItem);
+
+          useEffect(()=>{
+            setProducts(props.cartItem);
+          }, [props.cartItem])//asi que eso era xD, lo que debías hacer es asignar a estos [] (son corchetes por el hecho de ser un arreglo) el mismo objeto/array del que tenías intención de insertar xD
+          
+  return(
+    <div id="cart-container">      
+      {<ProductsList products={products} deleteProducts={deleteProducts}/>}
+    </div>     
+  );
+}
+
+//recuerda que el handler lo enviabas a los hijos porque como con ellos se puede hacer el delete
+
+function ProductsList(props) {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const toggleShow = () => setShow((s) => !s);
+
+  console.log('Products list: '+ props.products);
+  console.log(props.products);
+  const items = ((props.products)?getItemsList(props.products):null);
+
+  return (
+    <>
+      <CartButton onClick={toggleShow}/>  
+      
+      <Offcanvas id="off-canvas" show={show} onHide={handleClose} scroll = {true} backdrop = {false}>
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title id="off-canvas-title" >My cart</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body id="off-canvas-body">
+          {items && items}          
+        </Offcanvas.Body>
+
+        <Footer deleteProducts={props.deleteProducts}/>
+      </Offcanvas>            
+    </>
+  );
+}
+
+function CartButton(props){
+  return (
+      <div className="cart-button-access me-2" onClick={props.onClick}>
+          <i className="bi bi-cart3"></i>                      
+      </div>
+  );
+}//<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Enable body scrolling</button>
+
+function getItemsList(cartItems){   
+  let items = cartItems.map((item, index) => (
+    <CartItem key={index} index={index+1} item={item}/>
+  ))
+
+  return (    
+    <div id="products-list-body">
+      {items}
+    </div>
+  );
+}
+
+function Footer(props){  
+
+  return (
+    <div id="shopping-cart-footer-section">
+      <div id="cancel-option">              
+        <button id="cancel-button" onClick={onDelete(props.deleteProducts)}>
+          <span>Cancel</span>        
+        </button>
+      </div>    
+
+      <Link to='payment'>
+        <div id="payment-button">              
+            <span id="payment-span">Purchase</span>
+        </div>    
+      </Link>   
+    </div>    
+  );
+}//onClick={useLocalStorage_arrays}
+
+function onDelete(deleteProducts){
+  useEffect(()=>{
+    deleteProducts('card-products');
+  }, [])
+}
+
+export default ShoppingCart;
+
+//DESPUÉS DE hacer la venta, haremos la eliminación del storage del carrito
+
+/*const Cart = ({ cartItems, removeFromCart, clearCart }) => {
+  return (
+    <div className="cart">
+      <h2>Carrito de Compras</h2>
+      {cartItems.length === 0 ? (
+        <p>No hay productos en el carrito.</p>
+      ) : (
+        <div>
+          <ul>
+            {cartItems.map((product) => (
+              <li key={product.id}>
+                {product.name} - {product.price}
+                <button onClick={() => removeFromCart(product)}>Eliminar</button>
+              </li>
+            ))}
+          </ul>
+          <p>Total: {}</p>
+          <button onClick={() => clearCart()}>Vaciar carrito</button>
+        </div>
+      )}
+    </div>
+  );
+};*/
+
+
+||||||||||||||||||||||
+DESPUES DE IMPLEMENTAR la función andrentro del compoenente, hasta en la 
+parte de arriba, por las reglas que leí de los hooks, luego de leer el error
+
+import {React, useEffect} from 'react';
+import {Link} from 'react-router-dom'
+
+import './Shopping-cart.css'
+
+import { useState } from 'react';
+import { useLocalStorage_arrays } from '../../../hooks/useLocalStorage';
+import Offcanvas from 'react-bootstrap/Offcanvas';
+import CartItem from '../../items/cart-item/CartItem';
+
+function ShoppingCart(props){
+  const [products, setProducts, deleteProducts] 
+      = useLocalStorage_arrays('cart-products',
+          JSON.parse(window.localStorage.getItem('cart-products')))//Este quedo en lugar del handler, puesto que se encarga de hcaer lo del localStorage , antes tenia - window.localStorage.getItem('cart-products'), creo que es lo ideal, porque si no hay prop pero si listado ahí se arruinaria la cosa...
+
+          console.log("cart item: "+props.cartItem);
+
+          useEffect(()=>{
+            setProducts(props.cartItem);
+          }, [props.cartItem])//asi que eso era xD, lo que debías hacer es asignar a estos [] (son corchetes por el hecho de ser un arreglo) el mismo objeto/array del que tenías intención de insertar xD
+          
+  return(
+    <div id="cart-container">      
+      {<ProductsList products={products} />}
+    </div>     
+  );
+}
+
+//recuerda que el handler lo enviabas a los hijos porque como con ellos se puede hacer el delete
+
+function ProductsList(props) {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const toggleShow = () => setShow((s) => !s);
+
+  console.log('Products list: '+ props.products);
+  console.log(props.products);
+  const items = ((props.products)?getItemsList(props.products):null);
+
+  return (
+    <>
+      <CartButton toogleShow={toggleShow}/>  
+      
+      <Offcanvas id="off-canvas" show={show} onHide={handleClose} scroll = {true} backdrop = {false}>
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title id="off-canvas-title" >My cart</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body id="off-canvas-body">
+          {items && items}          
+        </Offcanvas.Body>
+
+        <Footer />
+      </Offcanvas>            
+    </>
+  );
+}
+
+function CartButton(props){
+  return (
+      <div className="cart-button-access me-2" onClick={props.toogleShow}>
+          <i className="bi bi-cart3"></i>                      
+      </div>
+  );
+}//<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Enable body scrolling</button>
+
+function getItemsList(cartItems){   
+  let items = cartItems.map((item, index) => (
+    <CartItem key={index} index={index+1} item={item}/>
+  ))
+
+  return (    
+    <div id="products-list-body">
+      {items}
+    </div>
+  );
+}
+
+function Footer(props){  
+  const [products, setProducts, deleteProducts] 
+      = useLocalStorage_arrays('cart-products','')
+
+  return (
+    <div id="shopping-cart-footer-section">
+      <div id="cancel-option">              
+        <button id="cancel-button" onClick={(useEffect(()=>{
+                                              deleteProducts('cart-products');
+                                            }, []))}>
+          <span>Cancel</span>        
+        </button>
+      </div>    
+
+      <Link to='payment'>
+        <div id="payment-button">              
+            <span id="payment-span">Purchase</span>
+        </div>    
+      </Link>   
+    </div>    
+  );
+}//onClick={useLocalStorage_arrays}
+
+function onDelete(deleteProducts){
+  
+}
+
+export default ShoppingCart;
+
+//DESPUÉS DE hacer la venta, haremos la eliminación del storage del carrito
+
+/*const Cart = ({ cartItems, removeFromCart, clearCart }) => {
+  return (
+    <div className="cart">
+      <h2>Carrito de Compras</h2>
+      {cartItems.length === 0 ? (
+        <p>No hay productos en el carrito.</p>
+      ) : (
+        <div>
+          <ul>
+            {cartItems.map((product) => (
+              <li key={product.id}>
+                {product.name} - {product.price}
+                <button onClick={() => removeFromCart(product)}>Eliminar</button>
+              </li>
+            ))}
+          </ul>
+          <p>Total: {}</p>
+          <button onClick={() => clearCart()}>Vaciar carrito</button>
+        </div>
+      )}
+    </div>
+  );
+};*/
+
+
+|||||AFTER found the solution (use localStorage, directamente :v), 
+     but because it does not update after the change, so I am going to change
+     the structure from a FUNCTION to a CLASS
+
+
+     import {React, useEffect} from 'react';
+import {Link} from 'react-router-dom'
+
+import './Shopping-cart.css'
+
+import { useState } from 'react';
+import { useLocalStorage_arrays } from '../../../hooks/useLocalStorage';
+import Offcanvas from 'react-bootstrap/Offcanvas';
+import CartItem from '../../items/cart-item/CartItem';
+
+function ShoppingCart(props){
+  const [products, setProducts, deleteProducts] 
+      = useLocalStorage_arrays('cart-products',
+          JSON.parse(window.localStorage.getItem('cart-products')))//Este quedo en lugar del handler, puesto que se encarga de hcaer lo del localStorage , antes tenia - window.localStorage.getItem('cart-products'), creo que es lo ideal, porque si no hay prop pero si listado ahí se arruinaria la cosa...
+
+          console.log("cart item: "+props.cartItem);
+
+          useEffect(()=>{
+            setProducts(props.cartItem);
+          }, [props.cartItem])//asi que eso era xD, lo que debías hacer es asignar a estos [] (son corchetes por el hecho de ser un arreglo) el mismo objeto/array del que tenías intención de insertar xD
+          
+  return(
+    <div id="cart-container">      
+      {<ProductsList products={products} />}
+    </div>     
+  );
+}
+
+//recuerda que el handler lo enviabas a los hijos porque como con ellos se puede hacer el delete
+
+function ProductsList(props) {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const toggleShow = () => setShow((s) => !s);
+
+  console.log('Products list: '+ props.products);
+  console.log(props.products);
+  const items = ((props.products)?getItemsList(props.products):null);
+
+  return (
+    <>
+      <CartButton toogleShow={toggleShow}/>  
+      
+      <Offcanvas id="off-canvas" show={show} onHide={handleClose} scroll = {true} backdrop = {false}>
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title id="off-canvas-title" >My cart</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body id="off-canvas-body">
+          {items && items}          
+        </Offcanvas.Body>
+
+        <Footer />
+      </Offcanvas>            
+    </>
+  );
+}
+
+function CartButton(props){
+  return (
+      <div className="cart-button-access me-2" onClick={props.toogleShow}>
+          <i className="bi bi-cart3"></i>                      
+      </div>
+  );
+}//<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Enable body scrolling</button>
+
+function getItemsList(cartItems){   
+  let items = cartItems.map((item, index) => (
+    <CartItem key={index} index={index+1} item={item}/>
+  ))
+
+  return (    
+    <div id="products-list-body">
+      {items}
+    </div>
+  );
+}
+
+function Footer(props){  
+  return (
+    <div id="shopping-cart-footer-section">
+      <div id="cancel-option">              
+        <button id="cancel-button" onClick={onDelete}>
+          <span>Cancel</span>        
+        </button>
+      </div>    
+
+      <Link to='payment'>
+        <div id="payment-button">              
+            <span id="payment-span">Purchase</span>
+        </div>    
+      </Link>   
+    </div>    
+  );
+}//onClick={useLocalStorage_arrays}
+
+function onDelete(){
+  localStorage.removeItem('cart-products');
+}//works
+
+export default ShoppingCart;
+
+//DESPUÉS DE hacer la venta, haremos la eliminación del storage del carrito
+
+/*const Cart = ({ cartItems, removeFromCart, clearCart }) => {
+  return (
+    <div className="cart">
+      <h2>Carrito de Compras</h2>
+      {cartItems.length === 0 ? (
+        <p>No hay productos en el carrito.</p>
+      ) : (
+        <div>
+          <ul>
+            {cartItems.map((product) => (
+              <li key={product.id}>
+                {product.name} - {product.price}
+                <button onClick={() => removeFromCart(product)}>Eliminar</button>
+              </li>
+            ))}
+          </ul>
+          <p>Total: {}</p>
+          <button onClick={() => clearCart()}>Vaciar carrito</button>
+        </div>
+      )}
+    </div>
+  );
+};*/
+
+
+
+|||||||||||||||||||||Luego de ver que al crear la clase me da error
+                     por lo cual volveremos a la forma de FUNCIÓN que se 
+                     encuentra aquí arribita
+
+
+import {React, useEffect} from 'react';
+import {Link} from 'react-router-dom'
+
+import './Shopping-cart.css'
+
+import { useState } from 'react';
+import { useLocalStorage_arrays } from '../../../hooks/useLocalStorage';
+import Offcanvas from 'react-bootstrap/Offcanvas';
+import CartItem from '../../items/cart-item/CartItem';
+
+function ShoppingCart(props){
+  const [products, setProducts, deleteProducts] 
+      = useLocalStorage_arrays('cart-products',
+          JSON.parse(window.localStorage.getItem('cart-products')))//Este quedo en lugar del handler, puesto que se encarga de hcaer lo del localStorage , antes tenia - window.localStorage.getItem('cart-products'), creo que es lo ideal, porque si no hay prop pero si listado ahí se arruinaria la cosa...
+
+          console.log("cart item: "+props.cartItem);
+
+          useEffect(()=>{
+            setProducts(props.cartItem);
+          }, [props.cartItem])//asi que eso era xD, lo que debías hacer es asignar a estos [] (son corchetes por el hecho de ser un arreglo) el mismo objeto/array del que tenías intención de insertar xD
+          
+  return(
+    <div id="cart-container">      
+      {<ProductsList products={products} />}
+    </div>     
+  );
+}
+
+//recuerda que el handler lo enviabas a los hijos porque como con ellos se puede hacer el delete
+
+function ProductsList(props) {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const toggleShow = () => setShow((s) => !s);
+
+  console.log('Products list: '+ props.products);
+  console.log(props.products);
+  const items = ((props.products)?getItemsList(props.products):null);
+
+  return (
+    <>
+      <CartButton toogleShow={toggleShow}/>  
+      
+      <Offcanvas id="off-canvas" show={show} onHide={handleClose} scroll = {true} backdrop = {false}>
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title id="off-canvas-title" >My cart</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body id="off-canvas-body">
+          {items && items}          
+        </Offcanvas.Body>
+
+        <CartFooter />
+      </Offcanvas>            
+    </>
+  );
+}
+
+function CartButton(props){
+  return (
+      <div className="cart-button-access me-2" onClick={props.toogleShow}>
+          <i className="bi bi-cart3"></i>                      
+      </div>
+  );
+}//<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Enable body scrolling</button>
+
+function getItemsList(cartItems){   
+  let items = cartItems.map((item, index) => (
+    <CartItem key={index} index={index+1} item={item}/>
+  ))
+
+  return (    
+    <div id="products-list-body">
+      {items}
+    </div>
+  );
+}
+
+class CartFooter extends React.Component{  
+    constructor(props){
+      super(props);
+      this.state = {
+        cancelled: 1
+      };
+
+      this.handleDelete = this.handleDelete.bind(this);
+    }
+
+    handleDelete(){
+      localStorage.removeItem('cart-products');
+      this.setState({cancelled: 1});
+    }//works
+
+    render(){
+      return (
+        <div id="shopping-cart-footer-section">
+          <div id="cancel-option">              
+            <button id="cancel-button" onClick={this.handleDelete}>
+              <span>Cancel</span>        
+            </button>
+          </div>    
+    
+          <Link to='payment'>
+            <div id="payment-button">              
+                <span id="payment-span">Purchase</span>
+            </div>    
+          </Link>   
+        </div>    
+      );
+    }
+}//onClick={useLocalStorage_arrays}
+
+
+
+export default ShoppingCart;
+
+//DESPUÉS DE hacer la venta, haremos la eliminación del storage del carrito
+
+/*const Cart = ({ cartItems, removeFromCart, clearCart }) => {
+  return (
+    <div className="cart">
+      <h2>Carrito de Compras</h2>
+      {cartItems.length === 0 ? (
+        <p>No hay productos en el carrito.</p>
+      ) : (
+        <div>
+          <ul>
+            {cartItems.map((product) => (
+              <li key={product.id}>
+                {product.name} - {product.price}
+                <button onClick={() => removeFromCart(product)}>Eliminar</button>
+              </li>
+            ))}
+          </ul>
+          <p>Total: {}</p>
+          <button onClick={() => clearCart()}>Vaciar carrito</button>
+        </div>
+      )}
+    </div>
+  );
+};*/ 

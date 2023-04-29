@@ -5,3 +5,261 @@ retorno sino una opción para cerrar, puesto
 que contiene info sensitiva
 
 \\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+||||| Lo reemplazaré no porque esté mal sino porque, voy a add el acordeon
+      así como en Tracking
+
+       import './Payment.css'
+
+import {Link} from 'react-router-dom'
+import Card from '../../../items/card-payment/Card';
+
+function Payment(props){
+    return(
+        <div id="payment-container">
+            <GoBack/>
+            <Header/>
+            
+            <Body/>            
+        </div>
+    );
+}
+
+function GoBack(){
+    return (
+        <div id="payment-reverse-div">
+            <Link to="/my-account/user/store">
+                <div id="go-back-arrow">
+                    <i className="bi bi-arrow-left"></i>
+                </div>                
+            </Link>                
+        </div>
+    );
+}
+
+function Header(props){
+    return (
+      <div id="payment-header">
+        Payment section
+      </div>
+    );
+}
+
+function Body(){
+    return(
+        <div id="payment-body">
+            <CardBanner/>            
+            <PaymentDetails/>
+        </div>
+    );
+}
+
+function CardBanner(props){
+    let cards = [
+        {cardNumber: '369852147123654',
+         expirationDate: '12/05/2025',
+         ccv: 653
+        },
+        {
+         cardNumber: '789545123132658',
+         expirationDate: '16/04/2023',
+         ccv: 8756
+        },
+        {cardNumber: '369852147123654',
+         expirationDate: '12/05/2025',
+         ccv: 653
+        },
+        {
+         cardNumber: '789545123132658',
+         expirationDate: '16/04/2023',
+         ccv: 8756
+        },
+        {cardNumber: '369852147123654',
+         expirationDate: '12/05/2025',
+         ccv: 653
+        },
+        {
+         cardNumber: '789545123132658',
+         expirationDate: '16/04/2023',
+         ccv: 8756
+        },
+    ];
+
+    console.log(cards);
+
+    return (
+        <div id="card-payment-section">
+             
+
+            <div id="card-list">
+                {cards &&
+                    cards.map((card, index) => 
+                        <div id="card-element">
+                            <div id="card-selection">
+                                <input type="radio" id="chose" name="chose"/>                                
+                            </div> 
+                            <Card key={index} index={index} card={card}/>
+                        </div>                        
+                    )
+                }
+            </div>
+            
+            <div id="add-card">
+                <span id="more-products">+</span>
+            </div>
+        </div>
+    );
+}
+
+function PaymentDetails(){
+    return (
+        <div id="detail-payment-section">
+            <div id="detail-header-section">
+                Total Q.
+            </div>
+            <div id="detail-table-section">
+                Table
+            </div>
+        </div>
+    );
+}
+
+export default Payment;
+
+
+
+||||||||||||||||FUNCIONAL y correcta [CART-ITEM]
+- pero previa a ser convertida clase debido al atributo del INPUT puesto que
+  tengo que poder mostrar el valor inicial y además obtenerlo al momento de 
+  cb
+
+
+  import './CartItem.css'
+
+import Swal from 'sweetalert2'
+
+function CartItem(props){
+    return (
+        <div id="cart-content">
+            <div id="card-index-section">
+                {props.index}
+            </div>
+            <div id="cart-item-section">
+                <div id="cart-image-section">
+                    <img src={props.item.product.available} alt={props.item.product.item.brand}/>
+                </div>
+                <div id="cart-information-section">
+                    <div id="name-brand-div">
+                        {props.item.product.item.name} - {props.item.product.item.brand}
+                    </div>
+                    <div>
+                        <p>Price: Q.{props.item.product.price}</p>
+                    </div>
+                    <div id="available-item">
+                        <p>Available: {props.item.product.available}</p>
+                    </div>
+                </div>                
+                <div id="cart-aquisition-section">
+                    <input type="number"
+                           name="aquisition-button" 
+                           id="aquisition-button"
+                           min={0}
+                           max={props.item.product.available}                           
+                           onChange={(e) => handleChange(props.index, props.item.product, e.target.value)} />
+                </div>
+            </div>
+        </div>
+    );  
+}
+
+function handleChange(index, product, value){
+    /*if(value > max){
+        document.getElementById('aquisition-button').value = max
+    }else */if(value === 0){//=0
+        Swal.fire({
+            title: 'Are you sure?',
+            text: ("Your are going to delete " + product.item.name),
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              onDelete(index);
+
+              Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              )
+            }
+          })
+    }
+}
+
+function onDelete(key){
+    let array = JSON.parse(window.localStorage.getItem('cart-products'))
+
+    array.splice((key-1), 1)//se eliminará el elemento en la posi = key, y el 1 es para que solo se app a 1 solo elemento, es decir el específico xD
+    localStorage.setItem('cart-products', JSON.stringify(array))//reemplazo del anterior
+    window.location.reload()
+}//works
+
+//Cuando el input-aquisition-element llegue a 0, se mostrará el alert, preguntando
+//Si desea eliminar el item de carrito
+
+export default CartItem;
+//hize este componente una función, porque al seleccionar el 
+    // boton (+) -> se va a hacer la axn aquí mismo, no afecta el carrito general, solo el item
+    // boton (-) -> se afecta todo el carrito, por lo tanto se exe
+    //              el método que el padre (Shopping-cart) envió, el
+    //              cual recibirá el tipo de la axn (delete parcial/completo)
+    //              y el codigo o nombre del objeto a eliminar
+
+
+
+
+||||||||||||||||||||SHOPPING-CART
+- estos son los métodos que agregué para actualizar la cdad tb en el
+  objeto del storage, puesto que si lo alamceno en un estado no tiene
+  mucho chiste, entocnes mejor de una vez xdxd
+
+
+                > Shopping alert
+              onQuantityChange={onQuantityChange}
+
+                > CartItem
+              onChange={(e) => handleChange(props.onQuantityChange, (props.index-1), props.item, e.target.value)}
+
+||||||||||||||||||Secure-Payment
+- Estilo: Antes de implementar JS para hacer el cb de clases, lo cual reemplazará
+          el estar mandando un parámetro para lograr esto
+
+
+function SecurePaymentBody_Status(props){
+    return(
+        <div id="secure-payment-table-status">
+            <div id="secure-payment-table-status-1">
+                <Status_Icon type='wrong'/>
+            </div>
+            <div id="secure-payment-table-status-2">
+                <Status_Icon type='wrong'/>
+            </div>
+            <div id="secure-payment-table-status-3">
+                <Status_Icon type='wrong'/>
+            </div>
+        </div>
+    );
+}
+
+function Status_Icon(props){       
+    return (
+        <div className={props.type} 
+            id="secure-payment-status-icon-div">
+                {((props.type==='wrong')
+                    ?<i className="bi bi-x-lg"></i>
+                    :<i className="bi bi-check2"></i>)}
+        </div>
+    );
+}

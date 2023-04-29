@@ -26,7 +26,7 @@
   justify-content: center;/*horizontal*/
   align-items: center;  
 
-  font-family: 'Poppins';
+  font-family: 'Poppins', sans-serif;
   font-size: 27px;  
 
   /*border: 1px solid rebeccapurple;*/

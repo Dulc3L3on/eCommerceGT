@@ -8,6 +8,9 @@ import CustomerHome from '../components/pages/customer/Customer-home.js';
 import Store from '../components/pages/customer/store/Store.js';
 import Tracking from '../components/pages/customer/tracking/Tracking.js'
 import MyStore from '../components/pages/customer/myStore/MyStore.js'
+    import Product from '../components/pages/customer/myStore/product/Product.js';
+import Payment from '../components/forms/sensitives/Payment/Payment.js';
+import SecurePayment from '../components/forms/sensitives/Payment/SecurePayment.js';
 
 
 
@@ -18,14 +21,20 @@ function MainRouter(props){//yo imagino que debe tener props puesto que debe dev
                 <Route index element={<Landing/>}/>
                 <Route path='/' element={<Landing/>}/>
                 <Route path='/GTCommerce' element={<Landing/>}/>
+                    <Route path='payment' element={<Payment/>}/>
+                        <Route path='payment/secure-payment' element={<SecurePayment/>}/>
                                 
                 <Route path='/login' element={<Login/>}/>
                 <Route path='/signup' element={<Signup/>}/>
 
                 <Route path='my-account/user' element={<CustomerHome/>}>
-                    <Route path='shop' element={<Store/>}/>
+                    <Route path='store' element={<Store/>}/>
+                        <Route path='store/payment' element={<Payment/>}/>                        
+                            <Route path='store/payment/secure-payment' element={<SecurePayment/>}/>
                     <Route path='track' element={<Tracking/>}/>
-                    <Route path='my-store' element={<MyStore/>}/>
+                    <Route path='my-store' element={<MyStore/>}/>                        
+                        <Route path='my-store/add-product' element={<Product/>}/>                       
+                    
                 </Route>
 
                 <Route path=''>
@@ -37,6 +46,17 @@ function MainRouter(props){//yo imagino que debe tener props puesto que debe dev
     //ya en el router de login y signup ya usaras el Guard para ver a donde direcionar...
     //cuando se vaya usar el Outlet, entonces Router 2 las eti si solo con children (1) entonces 1 eti y "{}""
 
+        //NOTA: en la app o store, la verdad no se donde exacatamente
+        //(mas seguro en store ahora que lo pienso) no fue nec colocar
+        //el <Outlet/> es mas en ese caso se puso al centro el contenido
+        //del Payment, deplano porque así está seteado el contiedo, de
+        //la Store
+
+    //NOTA - secure payment
+        //IF: secure-payment - creo que no tb funciona con store y nada mas o no funciona para nada :v
+        //IF: payment/secure-payment - solo renderizará esto, es decir si pones algo antes de esto que no sea localhost, entonces no se abre
+        //IF: store/payment/secure-payment - ahí si renderizará cuando se ponga la ruta [correcta] que lleva a renderizar a store...       
+        
 }//login, sign in and just that
 
 function HomeRouter(){
