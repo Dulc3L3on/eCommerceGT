@@ -7,6 +7,7 @@ import React from 'react';
 import {Link, withRouter} from 'react-router-dom'
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import Swal from 'sweetalert2'
 
 function Product(props){
     return (

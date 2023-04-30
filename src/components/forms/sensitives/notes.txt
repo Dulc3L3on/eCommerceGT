@@ -263,3 +263,96 @@ function Status_Icon(props){
         </div>
     );
 }
+
+||||||||||||||||No porque esté mal, sino porque no había agregado el FOOTER 
+[Payment]
+
+function PaymentDetails(props){
+    return (
+        <div id="detail-payment-section">
+            <div id="detail-header-section">
+                <div id="payment-option">
+                    <button type='submit' 
+                            id="payment-submit"
+                            className='btn btn-primary'
+                            onClick={onPayment}>Purchase</button>
+                </div>
+                <div id="total-detail-element">
+                    Total Q. <input type="number"
+                                    id="input-total"
+                                    defaultValue={getTotal()}
+                                    readOnly/>
+                </div>                
+            </div>
+            <div id="detail-table-section">
+                <PaymentTableHeader />
+                <PaymentTableBody />
+                <PaymentTableFooter />
+            </div>
+        </div>
+    );
+}
+
+
+function getTotal(){//cuando una funcion se invoque en algo que no sea un listener como DefaultValue, DEBES colocar los parentesis, lo cual no es el caso, cuando la función se coloca en un listener xD
+    let itemList = ((window.localStorage.getItem('cart-products'))
+                        ?JSON.parse(window.localStorage.getItem('cart-products'))
+                        :null)
+    let total = 0
+    console.log('si entro' + itemList)
+
+    if(itemList){
+        for(let index = 0; index < itemList.length; index++){
+            total += (itemList[index].quantity*itemList[index].product.price)            
+        }        
+    }
+    
+    console.log('total' + total)
+    return total;
+}//usado por el div Total
+
+./Css
+
+#total-detail-element{
+    height: 59px;
+    width: 217px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    box-sizing: border-box;
+    padding: 15px;
+
+    border-radius: 15px;
+
+    background-color: #F2F3F7;
+}
+
+#input-total{
+    height: 100%;
+    width: 105px;
+
+    box-sizing: border-box;
+    padding-left: 7px;
+    
+    background-color: ;
+
+    border: none;    
+}
+
+#input-total:focus {
+    /* Provide a fallback style for browsers
+       that don't support :focus-visible */
+    outline: none;
+    background: transparent;
+    cursor: default;
+  }
+  
+#input-total:focus:not(:focus-visible) {
+  /* Remove the focus indicator on mouse-focus for browsers
+     that do support :focus-visible */
+  background: transparent;
+}
+
+

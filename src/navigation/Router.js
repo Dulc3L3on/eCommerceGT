@@ -11,6 +11,12 @@ import MyStore from '../components/pages/customer/myStore/MyStore.js'
     import Product from '../components/pages/customer/myStore/product/Product.js';
 import Payment from '../components/forms/sensitives/Payment/Payment.js';
 import SecurePayment from '../components/forms/sensitives/Payment/SecurePayment.js';
+import DeliverHome from '../components/pages/deliver/Deliver-home.js';
+import Tracker from '../components/pages/deliver/tracking/Tracker.js';
+import Request from '../components/pages/deliver/requests/Request.js';
+import AdminHome from '../components/pages/administrator/Admin-home.js';
+import MyReport from '../components/pages/administrator/reports/MyReport.js';
+import Monitor from '../components/pages/administrator/managment/Monitor.js';
 
 
 
@@ -37,9 +43,15 @@ function MainRouter(props){//yo imagino que debe tener props puesto que debe dev
                     
                 </Route>
 
-                <Route path=''>
-
+                <Route path='my-account/deliver' element={<DeliverHome/>}>
+                    <Route path='my-tracker' element={<Tracker/>}/>
+                    <Route path='request' element={<Request/>}/>
                 </Route>
+                <Route path='my-account/admin' element={<AdminHome/>}>
+                    <Route path='monitor' element={<Monitor/>}/>
+                    <Route path='my-report' element={<MyReport/>}/>
+                </Route>
+
             </Routes>        
     );//lo de my accoutn está aqui temporalmente
 
@@ -56,7 +68,18 @@ function MainRouter(props){//yo imagino que debe tener props puesto que debe dev
         //IF: secure-payment - creo que no tb funciona con store y nada mas o no funciona para nada :v
         //IF: payment/secure-payment - solo renderizará esto, es decir si pones algo antes de esto que no sea localhost, entonces no se abre
         //IF: store/payment/secure-payment - ahí si renderizará cuando se ponga la ruta [correcta] que lleva a renderizar a store...       
-        
+
+    //Si te da tiempo
+        //my-account->customer-home
+        //my-account-user...->user_profile
+        //my-account->deliver-home
+        //my-account-deliver...->deliver-profile
+        //my-account->admin-home
+        //my-account-admin...->admin-profile
+    //lo de los profile está bien, pero que onda con my.account :v o sea, me refiero que aun no he hallado su utilidad o el funcionamiento que tiene para mi...
+    //creo que en realidad la cuestión está en que
+        //user7deliver/admin, deberían estar al principio y my-account ser una opción, pero para evitar inconvenientes con el mismo nombre fue que lo hice así xD
+
 }//login, sign in and just that
 
 function HomeRouter(){

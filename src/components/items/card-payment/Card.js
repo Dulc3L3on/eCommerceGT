@@ -9,7 +9,14 @@ function Card(props){
     return(
         <div id="card-container">
             <div id="card-header">
-                something
+                <div id="card-picture">
+                    <i class="bi bi-credit-card"></i>
+                </div>
+                {((new Date(props.card.expirationDate)) < new Date(Date.now())) &&
+                    <div id="card-alert">
+                        ** Expired **
+                    </div>
+                }                
             </div>
             <div id="card-details">
                 <div>

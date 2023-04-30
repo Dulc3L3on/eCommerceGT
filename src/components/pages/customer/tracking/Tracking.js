@@ -18,7 +18,7 @@ function Tracking(props){
 
          {code: '5632180',
          products: 'Juego-de-Sala-Tucson',
-         date: '23/04/2023',
+         date: '04/23/2023',//due-date
          status: 'delivered'},
 
          {code: '7898462',
@@ -224,21 +224,11 @@ function TrackingPictureBuilder(props){
                 if(orders[index].status === 'delivered'){
                     if(props.delivered === true){                                                
                         console.log("index: " + index);
-                        rows.push( <TrackingRow key={index} 
-                                                number={index+1}
-                                                code={orders[index].code}
-                                                products={orders[index].products}
-                                                date={orders[index].date}
-                                                status={orders[index].status}/>);
+                        rows.push(getRow(index, orders[index]));
                     }
                 }else{                                        
                     console.log("index- " + index);                    
-                    rows.push( <TrackingRow key={index} 
-                                            number={index+1}
-                                            code={orders[index].code}
-                                            products={orders[index].products}
-                                            date={orders[index].date}
-                                            status={orders[index].status}/>);
+                    rows.push(getRow(index, orders[index]));
                 }
             }
         }                
@@ -248,6 +238,15 @@ function TrackingPictureBuilder(props){
                 {orders && rows}
             </div>
         );
+    }
+
+    function getRow(index, order){
+        return ( <TrackingRow key={index} 
+            number={index+1}
+            code={order.code}
+            products={order.products}
+            date={order.date}
+            status={order.status}/>);
     }
     
     function TrackingRow(props){

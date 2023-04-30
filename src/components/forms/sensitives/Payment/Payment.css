@@ -133,45 +133,12 @@
     margin-top: 50px;
 }
 
-#detail-header-section{
-    height: auto;
-    width: 100%;    
-
-    display: flex;
-    flex-direction: row;    
-    justify-content: flex-end;
-    align-items: center;
-
-    border-radius: 15px;
-
-    box-sizing: border-box;
-    padding-right: 20px;
-
-    font-size: 22px;
-}
-
-#total-detail-element{
-    height: 59px;
-    width: 257px;
-
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    box-sizing: border-box;
-    padding: 15px;
-
-    border-radius: 15px;
-
-    background-color: #F2F3F7;
-}
-
 #detail-table-section{
     height: auto;
     width: 100%;   
 }
 
-#payment-table-header, #payment-table-row{
+#payment-table-header, #payment-table-row, #payment-table-footer{
     height: 70px;
     width: 100%;
 
@@ -210,3 +177,79 @@
 
     border-bottom: none !important;
 }
+
+#payment-table-footer{
+    border-top: 1px solid silver;
+
+    background-color: #F2F3F7;
+}
+
+#total-section{/*es por así decir el equivalente de en quine vida fue: total-detail-element*/
+    display: flex;
+    flex-direction: row;
+}
+
+#input-total{
+    height: 100%;
+    width: 105px;
+
+    box-sizing: border-box;
+    padding-left: 7px;
+    
+    background-color: transparent;
+
+    border: none;    
+}
+
+#input-total:focus {
+    /* Provide a fallback style for browsers
+       that don't support :focus-visible */
+    outline: none;
+    background: transparent;
+    cursor: default;
+  }
+  
+#input-total:focus:not(:focus-visible) {
+  /* Remove the focus indicator on mouse-focus for browsers
+     that do support :focus-visible */
+  background: transparent;
+}
+
+#button-payment-section-div{
+    height: auto;
+    width: 100%;    
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    align-items: center;
+
+
+    border-radius: 15px;
+
+    box-sizing: border-box;
+    padding-right: 20px;
+    margin-top: 21px;
+
+    font-size: 22px;    
+}
+
+#payment-submit{
+    height: 55px;
+    width: 100%;
+
+    font-size: 20px;
+
+    box-sizing: border-box;    
+}
+
+/*.disabled{
+    cursor: not-allowed;
+    background-color: rgb(229, 229, 229) !important;
+}
+
+.disabled > * 
+{
+    pointer-events:none;
+}*//*Imagino que podrá ser útil xdxd*/

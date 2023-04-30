@@ -1674,4 +1674,192 @@ export default Tracking;
 -Pero me da curiosidad de si en realidad esto tb podria haber funcionado
  - ya se que el Field por el que reemplace esto si funciona, pero aquí???
 
+||||||||||||||||||NOTA: Después de darme cuenta que en el css es donde se 
+ debe setear desde un principio la invisibilidad y luego con JS cambiarlo
+ de lo contrario no funciona
+
+
+
+function handleCheckboxChange(dateID, divID){
+    console.log('exe chechbox ')
+    var inputDate = document.getElementById(dateID)
+    var disabledDateDiv = document.getElementById(divID)
+    console.log('input date: ' + inputDate)
+
+    if(inputDate){
+        console.log('input date: ' + inputDate)
+
+        inputDate.style.visibility = true;
+        disabledDateDiv.style.visibility = false;
+    }
+}
+
+//y que en visibility se debe setear 'visible' xD :v 
+
+
+||||||MyStore.css
+Antes de ser reemplazado el .js por las equivalencias de las
+tablas que hay en otras páginas, que fueron hechas por medio 
+de divs 
+
+.my-store-container{
+    height: auto;
+    min-height: 1176px;
+    width: 100%;
+
+    box-sizing: border-box;
+    padding: 70px 510px;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 19px;
+
+    background-color: #F2F3F7;    
+}
+
+#my-store-table-container{
+    max-height: 1000px !important;
+    height: auto;   
+    margin-bottom: 20px;    
+
+    overflow-y: auto;/*hidden, solo oculta el contenido extra, sin barras de desplazamiento...*/
+    box-shadow: 7px 10px 50px 10px rgba(0, 0, 0, 0.062);
+}
+
+table{
+    max-height: 980px !important;
+    height: auto;
+
+    background-color: white;
+    border: 1px solid black;
+}
+
+.my-store-table-header{
+    background-color: #E7F1FF;
+}
+
+table th{
+    height: 70px;        
+
+    box-sizing: border-box;
+    padding-top: 5px;
+}
+
+tr:hover{    
+    background-color: #b7d6ff2c;/*#C6FFFF;/*rgba(173, 217, 255, 0.39);*/
+}
+
+table td{
+    /*height: 110px;*/
+    min-height: 110px;  
+    max-height: 110px;  
+
+    padding: 25px;
+}
+
+th:first-child, td:first-child{
+    max-width: 120px;
+}
+
+table th:nth-child(2), td:first-child {
+    max-width: 140px;
+}
+
+table th:nth-child(3), td:first-child {
+    max-width: 100px;
+}
+
+table th:nth-child(4), td:first-child {
+    max-width: 270px;
+}
+
+table th:nth-child(5), td:first-child {
+    max-width: 70px;
+}
+
+table th:nth-child(6), td:first-child {
+    width: 70px;
+}
+
+table th:last-child, td:first-child {
+    width: 60px;
+}
+
+#product-img{
+    width: 60px;
+    height: 60px;
+}
+
+#footer-section{
+    position: absolute;
+    
+
+    height: auto;
+    width: 63.4%;/*sin position:absolute. el 100% es el dato a emplear*/
+
+    display: flex;
+    justify-content: flex-end;    
+
+    /*border: 1px solid maroon;*/
+}
+
+#more-products{
+    height: 75px;
+    width: 75px;
+    border-radius: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;   
+
+    font-size: 50px;    
+    color: black;
+
+    background-color: white;
+    box-shadow: 2px 3px 4px 0.5px rgba(0, 0, 0, 0.2);/*box-shadow: 2px 3px 25px rgba(0, 0, 0, 0.6);*/
+
+    cursor: pointer;
+}
+
+
+||||||||||||||||||MyStore 
+
+- Previo a darme cuenta que si iba a nec un método cada uno 
+  de los dos tipos, puesto que debo asignarles diferentes anchos
+  a columnas con un mismo título
+
+  function Row(props){
+    return (        
+        <div id="my-store-table-row">
+            <div id="my-store-table-title-1">
+                {props.number}
+            </div>
+            <div id="my-store-table-title-2">
+                <img src={props.picture} alt={props.name} />
+            </div>
+            <div id="my-store-table-title-3">
+                {props.name}
+            </div>
+            <div id="my-store-table-title-4">
+                {props.category}
+            </div>
+            <div id="my-store-table-title-5">
+                {props.features}
+            </div>            
+            <div id="my-store-table-title-6">
+                {props.price}
+            </div>         
+            {
+                props.type === 'active' && (
+                    <>
+                        <div id="active-table-title-5">
+                            {props.available}
+                        </div>            
+                        <div id="active-table-title-6">
+                            {props.sold}
+                        </div>  
+                    </>                           
+                )
+            }                         
+        </div>        
+    );
 

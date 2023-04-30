@@ -1,0 +1,210 @@
+.request-container{
+    height: auto;
+    min-height: 1176px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+
+    box-sizing: border-box;
+    padding: 50px;    
+    
+    background-color: #F2F3F7;
+    border: 1px solid tan;
+}
+
+#request-table-container{
+    height: auto;
+    width: 1650px;/*1950*/
+
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;    
+    margin-top: 50px;
+
+    background-color: white;
+    box-shadow: 7px 10px 50px 10px rgba(0, 0, 0, 0.062);
+    /*border: 1px solid greenyellow;*/
+}
+
+#request-table-filter{
+    height: auto;
+    width: 100%;    
+
+    display: flex;
+    flex-direction: row;    
+    justify-content: flex-start;
+    align-items: center;
+
+    box-sizing: border-box;    
+
+    font-size: 22px;
+    background-color: #E7F1FF;    
+    /*border: 1px solid black;*/    
+}
+
+#request-filter-container{
+    height: auto;
+    width: 55%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    box-sizing: border-box;
+    padding: 21px 0px 21px 20px;
+
+    border-radius: 15px;
+    
+    background-color: #E7F1FF;
+    /*border: solid;*/
+}
+
+#input-date-container{
+    height: auto;
+    width: auto;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    box-sizing: border-box;
+    margin-right: 45px;
+
+    /*border: solid;*/
+}
+
+.input-date{
+    height: 50px;
+    width: 250px;/*550px*/
+
+    box-sizing: border-box;
+    padding: 15px;
+    margin-right: 31px;
+
+    border: none;
+    border-radius: 15px;
+    background-color: white;
+}
+
+#checks-label{
+    width: auto;
+
+    box-sizing: border-box;
+    padding-right: 17px;
+    margin-right: 25px;
+
+    border-right: 1px solid grey;    
+}
+
+#pending-check, #completed-check{   
+    width: 20px;
+    height: 20px;
+
+    margin-right: 10px;
+}
+
+#request-table-content{
+    height: auto;
+    width: 100%;    
+
+    /*border: 1px solid black;*/
+}
+
+#request-table-header, #request-table-row{
+    height: 70px;
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 
+        minmax(100px, 0.2fr)
+        minmax(150px, 1.15fr)
+        minmax(150px, 1.97fr)
+        minmax(150px, 2.15fr)
+        minmax(150px, 1.90fr)
+        minmax(90px, 1.25fr)
+        minmax(90px, 1.25fr);
+    column-gap: 0px;
+    row-gap: 50px;
+    align-items: center;
+
+    box-sizing: border-box;
+    padding-left: 20px;
+
+    font-size: 22px;
+
+    border-bottom: 1px solid silver;
+}
+
+#request-table-body{
+    height: auto;
+    width: 100%;
+
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#request-table-row{
+    color: #6d7077;
+    padding-top: 17px;
+
+    border-bottom: none !important;
+}
+
+#request-table-row:hover{
+    background-color: #c8d1dd5e;   
+}
+
+#request-table-row:hover #request-option-accept{
+    visibility: visible;
+    cursor: pointer;
+}
+
+#request-options{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    box-sizing: border-box;
+    padding: 5px;
+
+    position: relative;       
+    left: 1535px;
+    top: -87px;
+
+    /*border: solid;*/
+}
+
+#request-table-row:hover #request-option-denied{
+    visibility: visible;
+    cursor: pointer;
+}
+
+#request-option-accept, #request-option-denied{
+    height:31px;
+    width: 31px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 100%;    
+
+    margin-right: 7px;
+    margin-bottom: 15px;
+
+    font-size: 22px;
+    background-color: white;
+    box-shadow: 2px 3px 4px 0.5px rgba(0, 0, 0, 0.2);
+
+    /*lo de visible creo que yo lo add por error, por error elimine el hidden, del cursor no me acuerdo haberlo tocado asi que...*/
+    cursor: pointer;          
+}
