@@ -1,0 +1,356 @@
+#employee-container{
+    min-height: 1176px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    box-sizing: border-box;
+
+    background-color: #F2F3F7;
+    /*border: solid 1px crimson;*/
+}
+
+#employee-reverse-div{
+    height: 65px;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    
+    box-sizing: border-box;
+    padding-left: 35px;
+}
+
+#employee-header{
+    height: 70px;
+    width: 1776px;    
+
+    display: flex;
+    flex-direction: row;    
+    align-items: center;
+
+    box-sizing: border-box;
+    padding: 15px 55px ;
+    margin-bottom: 15px;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+
+    background-color: white;
+    box-shadow: 7px 10px 50px 10px rgba(0, 0, 0, 0.062);
+}
+
+#employee-body{
+    height: auto;/**/
+    width: 1776px;    
+
+    display: flex;
+    flex-direction: column;
+
+    box-sizing: border-box;
+    padding: 30px 50px;    
+    margin-bottom: 70px;
+
+    background-color: #F8F8F8;    
+    box-shadow: 7px 10px 50px 10px rgba(0, 0, 0, 0.062);
+}
+
+#personal-employee-data-div{
+    height: auto;
+    width: 100%;
+
+    display: flex;    
+    justify-content: center;    
+
+    /*border: solid red;*/
+}
+
+#personal-employee-data-column-1{
+    height: 550px;
+    width: 35%;
+
+    display: flex;    
+    justify-content: center;
+
+    box-sizing: border-box;    
+
+    /*border: solid 1px skyblue;*/
+}
+
+#personal-employee-data-column-2{
+    height: auto;
+    width: 65%;
+
+    display: flex;
+    flex-direction: column;    
+    
+    box-sizing: border-box;
+    padding-top: 25px;
+
+
+    /*border: solid 1px skyblue;*/
+}
+
+#personal-info-employee-div{
+    height: auto;
+    width: 100%;
+
+    display: flex;
+    flex-wrap: wrap;
+
+    /*box-sizing: border-box;
+    padding-top: 25px;*/
+
+    /*border: solid 1px lightsalmon;*/
+}
+
+#full-name-container, #DOB-container{
+    height: auto;
+    width: 677px;
+
+    display: flex;
+    flex-direction: column;
+
+    box-sizing: border-box;
+    margin-right: 75px;
+}
+
+#DOB-container{
+    width: 250px;
+}
+
+#gender-container{
+    height: auto;
+    width: auto;
+
+    display: flex;
+    align-items: flex-start;
+}
+
+#male-gender-container, #female-gender-container{
+    height: auto;
+    width: 75px;
+
+    margin-right: 75px;
+}
+
+#lbl-male-gender, #lbl-female-gender{
+    height: auto;
+    width: 75px;
+
+    display: flex;    
+}
+
+#employee_gender_input{
+    height: 27px;
+    width: 25px;
+    
+    margin-right: 8px;
+}
+
+#address-info-employee-div{
+    height: auto;
+    width: 95%;
+
+    /*border: 1px solid cornflowerblue;*/
+}
+
+#contact-info-employee-div{
+    height: auto;
+    width: 100%;
+
+    display: flex;
+    /*border: 1px solid crimson;*/
+}
+
+#contact-mobile-container, #alt-mobile-contact-container{
+    height: auto;
+    width: auto;        
+
+    margin-right: 84.5px;    
+}
+
+#job-employee-data-div{
+    height: auto;
+    width: 100%;
+
+    display: flex;
+    justify-content: flex-end;
+
+    /*border: 1px solid fuchsia;*/
+}
+
+#job-employee-data-column-1, #job-employee-data-column-2{
+    height: auto;
+    width: 40.5%;
+
+    display: flex;
+    flex-direction: column;
+
+    box-sizing: border-box;  
+    margin-bottom: 97px;  
+
+    /*border: 1px solid gold;*/
+}
+
+#job-employee-position, #job-employee-schedule{
+    display: flex;
+
+    box-sizing: border-box;    
+}
+
+#job-employee-position{
+    margin-bottom: 47px;
+}
+
+#job-label{
+    height: 100%;
+    width: 90px;
+
+    box-sizing: border-box;
+}
+
+#position_select, #schedule_select{
+    height: 57px;
+    width: 500px;
+
+    border-radius: 5px;
+    border: 1px solid rgba(192, 192, 192, 0.904);
+    background-color: white;
+}
+
+#job-employee-data-column-2{
+    width: 25% !important;
+}
+
+#salary-container{
+    height: 57px;
+    width: 355px;
+
+    display: flex;
+    flex-direction: row;
+}
+
+#user-employee-data-div{
+    height: auto;
+    width: auto;
+
+    display: flex;    
+    justify-content: flex-end;
+
+    box-sizing: border-box;
+    padding-top: 10px;
+
+    /*border: 1px solid rebeccapurple;*/
+}
+
+#user-employee-data-div-column-u{
+    width: fit-content;
+
+    display: flex;
+
+    /*border: 1px solid sandybrown;*/
+}
+
+#user-name-employee-container{
+    margin-right: 92px;
+}
+
+#user-password-employee-container{
+    margin-right: 63.5px;
+}
+
+#full-name-div, #DOB-div, #gender-div, #address-div, #mobile-div, #alt-mobile-div{
+    height: 57px;    
+}
+
+#error-div{
+    height: auto;
+    width: 470px;
+
+    box-sizing: border-box;
+
+    padding: 5px;
+
+    margin-top: -10px;
+    margin-bottom: 30px;/*no funciona y en este caso tampoc aunque le haya puedtoo en px la anchura...*/
+
+    color: red;
+    /*border: solid 1px slateblue;*/
+}
+
+#submit{
+    height: 57px;
+    width: 1676px;
+
+    font-size: medium;
+
+
+    margin-bottom: 15px;
+}
+
+#employee-img-preview{
+    height: 500px;
+    width: 500px;
+
+    box-sizing: border-box;
+    margin-top: -32px;
+    margin-bottom: 27px;
+    
+    border: 1px solid rebeccapurple;
+}
+
+/*#image-previewed{
+    position: relative;
+    display: inline-block;
+
+}*/
+
+#employee-image-previewed::before {
+    height: 500px;/*57px*/
+    width:500px;
+
+    content: 'Choose the image'; /* testo por defecto */
+
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    position: absolute;
+    left: 0px;/*left: 35px;*/
+    right: 0;
+    top: 21px;/*top: 530px;*/
+    bottom: 0;
+
+    border-radius: 5px;    
+
+    background-color: #5678EF;
+  }
+
+  #field-1{
+    height: 630px;
+    width: 60%;        
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+    
+    margin-left: -150px;    
+    /*border: 1px solid skyblue;*/
+}
+
+  #employee-image-previewed{
+    opacity: 4;/*opacity: 4*/
+    width: 200px;
+    height: 0px;
+    display: inline-block;
+
+    cursor: pointer;
+  }

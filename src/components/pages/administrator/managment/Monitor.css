@@ -1,0 +1,206 @@
+.monitor-container{
+    height: auto;
+    min-height: 1176px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+
+    box-sizing: border-box;
+    padding: 50px;    
+    
+    background-color: #F2F3F7;
+    border: 1px solid tan;
+}
+
+#monitor-table-container{
+    height: auto;
+    width: 1650px;/*1950*/
+
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;    
+    margin-top: 50px;
+
+    background-color: white;
+    box-shadow: 7px 10px 50px 10px rgba(0, 0, 0, 0.062);
+    /*border: 1px solid greenyellow;*/
+}
+
+#monitor-table-filter{
+    height: auto;
+    width: 100%;    
+
+    display: flex;
+    flex-direction: row;    
+    justify-content: flex-start;
+    align-items: center;
+
+    box-sizing: border-box;    
+
+    font-size: 22px;
+    background-color: #E7F1FF;    
+    /*border: 1px solid black;*/    
+}
+
+#monitor-filter-container{
+    height: auto;
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    box-sizing: border-box;
+    padding: 21px 0px 21px 20px;
+
+    border-radius: 15px;
+    
+    background-color: #E7F1FF;
+    /*border: solid;*/
+}
+
+#monitor-input-criteria-filter{
+    height: 100%;
+    width: 37%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    
+    padding-right: 40px;
+    margin-right: 40px;
+
+    box-sizing: border-box;/*para que no se salga de los bordes*/         
+    
+    /*border-right: 1px solid grey;*/
+}
+
+#monitor-searcher{
+    height: 50px;
+    width: 100%;/*550px*/
+
+    border: none;
+    border-radius: 15px 0px 0px 15px;
+
+    padding: 20px;    
+
+    background-color: #ffffff;
+}
+
+#monitor-button-search/*, #button-search-2*/{
+    height: 50px;
+    width: 55px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+
+    border: none;
+    border-radius: 0px 15px 15px 0px;
+
+    font-size: 25px;
+    color: white;
+
+    background-color: rgba(53, 136, 230, 0.945);    
+    cursor: pointer;
+}
+
+#monitor-checks-label{
+    width: auto;
+
+    box-sizing: border-box;
+    padding-right: 17px;
+    margin-right: 25px;
+
+    border-right: 1px solid grey;    
+}
+
+#workID-check, #name-check, #since-check, #lastUpdate-check{   
+    width: 20px;
+    height: 20px;
+
+    margin-right: 10px;
+}
+
+#monitor-table-content{
+    height: auto;
+    width: 100%;    
+
+    /*border: 1px solid black;*/
+}
+
+#monitor-table-header, #monitor-table-row{
+    height: 70px;
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 
+        minmax(100px, 0.2fr)
+        minmax(150px, 1.7fr)
+        minmax(150px, 2.5fr)
+        minmax(150px, 1.5fr)
+        minmax(150px, 1.90fr)
+        minmax(90px, 1.25fr)
+        minmax(90px, 1.25fr)
+        minmax(90px, 1.25fr);
+    column-gap: 0px;
+    row-gap: 50px;
+    align-items: center;
+
+    box-sizing: border-box;
+    padding-left: 20px;
+
+    font-size: 22px;
+
+    border-bottom: 1px solid silver;
+}
+
+#monitor-table-body{
+    height: auto;
+    width: 100%;
+
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#monitor-table-row{
+    color: #6d7077;
+    padding-top: 17px;
+
+    border-bottom: none !important;
+}
+
+#monitor-table-row:hover{
+    background-color: #c8d1dd5e;   
+}
+
+.employee-button-floating{
+    height: 85px;
+    width: 85px;
+    
+    border-radius: 100%;
+
+    position: fixed;   
+    bottom: 30px;
+    right: 80px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 47px;    
+
+    background-color: white;
+    box-shadow: 2px 3px 4px 0.5px rgba(0, 0, 0, 0.2);
+
+    cursor: pointer;
+}

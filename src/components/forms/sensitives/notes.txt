@@ -355,4 +355,82 @@ function getTotal(){//cuando una funcion se invoque en algo que no sea un listen
   background: transparent;
 }
 
+||||||||||||||||||Before to realize that I has to use FORMIK
+
+import './Employee.css'
+
+function Employee(){
+    return (
+        <div id="employee-container">
+            <div id="personal-employee-data-div">
+                <div id="personal-employee-data-column-1">
+                    <img id="employee-picture"/>
+                </div>
+                <div id="personal-employee-data-column-2">
+                    <div id="person-info-div">
+                        <input type="text" name="employee-name"/>
+                        <input type="date" name="employee-birthday"/>
+                        <input type="radio" name="employee-gender" value="male"/>
+                        <input type="radio" name="employee-gender" value="female"/>
+                    </div>                    
+
+                    <input type="text" name="employee-mailing-address"/>
+
+                    <div id="contact-info-employee-div">
+                        <input type="tel" name="employee-contact-number-1" placeholder="(area-code) ####-####"/>
+                        <input type="tel" name="employee-contact-number-2" placeholder="(area-code) ####-####"/>
+                    </div>                    
+                </div>
+            </div>
+            <div id="job-employee-data-div">
+                <div id="job-employee-data-column-1">
+                    {getPositions()}
+                    {getSchedules()}
+                </div>
+                <div id="job-employee-data-column-2">
+                    <p>Salary Q. </p>
+                </div>
+            </div>
+            <div id="user-employee-data-div">
+                <input type="text" value=""/>
+                <input type="text" value=""/>                
+            </div>
+        </div>
+    );
+}
+
+function getPositions(){
+    return (
+        <select>
+            <option value="administrator"/>
+            <option value="deliver"/>
+        </select>
+    );
+}
+
+function getSchedules(){
+    return (
+        <select>
+            <option value="morning"/>
+            <option value="afternoon"/>
+            <option value="evening"/>
+        </select>
+    );
+}
+
+export default Employee;
+
+//TO-DO
+/* 
+
+            Form Employee
+                -terminarlo
+                -add lo faltante en product
+                -arreglar card xD
+                -empezar logeos
+                -diseñar tablas
+                -queries
+                -si te da tiempo add las 2 ventanas faltantes...
+*/
+
 

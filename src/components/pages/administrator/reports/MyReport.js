@@ -86,10 +86,10 @@ function ReportOptionsDiv(props){
     return (
         <div id="my-report-options">
             <div id="my-report-option-download" onClick={() => handleDownloading(props.report)}>
-                <i class="bi bi-box-arrow-down"></i>
+                <i className="bi bi-box-arrow-down"></i>
             </div>
-            <div id="my-report-option-share" onClick={() => handleSending(props.report)}>
-                <i class="bi bi-share-fill"></i>
+            <div id="my-report-option-share" onClick={() => handleShare(props.report)}>
+                <i className="bi bi-share-fill"></i>
             </div>
         </div>
     );    
@@ -99,7 +99,7 @@ function handleDownloading(report){
 
 }
 
-function handleSending(report){
+function handleShare(report){
 
 }
 

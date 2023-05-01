@@ -8,7 +8,7 @@ import CustomerHome from '../components/pages/customer/Customer-home.js';
 import Store from '../components/pages/customer/store/Store.js';
 import Tracking from '../components/pages/customer/tracking/Tracking.js'
 import MyStore from '../components/pages/customer/myStore/MyStore.js'
-    import Product from '../components/pages/customer/myStore/product/Product.js';
+import Product from '../components/pages/customer/myStore/product/Product.js';
 import Payment from '../components/forms/sensitives/Payment/Payment.js';
 import SecurePayment from '../components/forms/sensitives/Payment/SecurePayment.js';
 import DeliverHome from '../components/pages/deliver/Deliver-home.js';
@@ -17,6 +17,7 @@ import Request from '../components/pages/deliver/requests/Request.js';
 import AdminHome from '../components/pages/administrator/Admin-home.js';
 import MyReport from '../components/pages/administrator/reports/MyReport.js';
 import Monitor from '../components/pages/administrator/managment/Monitor.js';
+import Employee from '../components/forms/sensitives/Employee/Employee.js';
 
 
 
@@ -49,6 +50,7 @@ function MainRouter(props){//yo imagino que debe tener props puesto que debe dev
                 </Route>
                 <Route path='my-account/admin' element={<AdminHome/>}>
                     <Route path='monitor' element={<Monitor/>}/>
+                        <Route path='monitor/new-employee' element={<Employee/>}/>
                     <Route path='my-report' element={<MyReport/>}/>
                 </Route>
 

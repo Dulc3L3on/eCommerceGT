@@ -75,47 +75,70 @@ function ProductForm(props){
         >
           <div id="product-form-container">
             <Form>              
-              <ImageInput/>              
+              <div id="product-info-section-1">
+                <ImageInput/>    
               
-              <div id="product-info-section">
-                <div className='input-group mb-3' id="field-2">
-                  <label htmlFor="productName"
-                        className="input-group-text">
-                          Name: 
-                  </label>
-                  <Field name="productName" className="form-control" id="productName" placeholder="Product name"/>          
-                </div>        
-                <div id="error-div">
-                  <ErrorMessage name="productName" className="error-product-div"/>
-                </div>          
+                <div id="product-detail-container">
+                  <div id="product-name-container">
+                    <div className='input-group mb-3' id="field-2">
+                        <label htmlFor="productName"
+                              className="input-group-text">
+                                Name: 
+                        </label>
+                        <Field name="productName" className="form-control" id="productName" placeholder="Product name"/>          
+                      </div>        
+                      <div id="error-div">
+                        <ErrorMessage name="productName" className="error-product-div"/>
+                      </div>          
+                  </div>
+
+                  <div id="product-brand-container">
+                    <label id="product-brand-label" 
+                           htmlFor='brand_select' 
+                           className="input-group-text">Brand</label>                                
+                    <Field as="select" id="brand_select" name="brand_select">
+                      <option value="Asus">Administrator</option>
+                      <option value="Esika">Deliver</option>                          
+                    </Field>
+                  </div>      
             
-                <DataList/>
+                  <DataList/>
 
-                <div className='input-group mb-3' id="field-4">
-                  <label htmlFor="price"
-                        className="input-group-text">
-                          Price: 
-                  </label>
-                  <Field name="price" type="number" className="form-control" id="price"/>          
-                </div>            
-                <div id="error-div">
-                  <ErrorMessage name="price" id="error-product-div"/>
-                </div>
+                  <div id="product-numbers-container">
+                    <div id="product-price-container">
+                      <div className='input-group mb-3' id="field-4">
+                        <label htmlFor="price"
+                              className="input-group-text">
+                                Price: 
+                        </label>
+                        <Field name="price" type="number" className="form-control" id="price"/>          
+                      </div>            
+                      <div id="error-div">
+                        <ErrorMessage name="price" id="error-product-div"/>
+                      </div>
+                    </div >
 
-                <div className='input-group mb-3' id="field-5">
-                  <label htmlFor="available"
-                        className="input-group-text"
-                        id="available">
-                          Available: 
-                  </label>
-                  <Field name="available" type="number" className="form-control"/>          
-                </div>            
-                <div id="error-div">
-                  <ErrorMessage name="available" id="error-product-div"/>
-                </div>
+                      <div id="product-availability-container">
+                        <div className='input-group mb-3' id="field-5">
+                          <label htmlFor="available"
+                                className="input-group-text"
+                                id="available">
+                                  Available: 
+                          </label>
+                          <Field name="available" type="number" className="form-control"/>          
+                        </div>            
+                        <div id="error-div">
+                          <ErrorMessage name="available" id="error-product-div"/>
+                        </div>
+                      </div>                                
+                  </div>
+                </div>                                
+              </div>
+                
 
+              <div id="product-info-section-2">
                 <div className='mb-3' id="field-6">
-                  <label htmlFor="features" className="form-label">Features</label>
+                  <label htmlFor="features" id="lbl-features"className="form-label">Features</label>
                   <Field name="features" 
                          as="textarea" 
                          className="form-control"
@@ -125,11 +148,9 @@ function ProductForm(props){
                 <div id="error-div">
                   <ErrorMessage name="features" id="error-product-div"/>
                 </div>
-              </div>
-              
-              <button type="submit" id="product-submit" className="btn btn-primary">Submit</button>
-              
-            </Form>
+              </div>                              
+              <button type="submit" id="product-submit" className="btn btn-primary">Submit</button>              
+            </Form>            
           </div>          
         </Formik>
       </div>
@@ -154,16 +175,16 @@ class ImageInput extends React.Component{
 
   render(){
     return(
-      <div className='input-group mb-3' id="field-1"> 
-        <img id="img-preview" alt='recent' src={this.state.filepreview}/>
-        <input id="image-previewed" 
+      <div className='input-group mb-3' id="product-image-container"> 
+        <img id="product-img-preview" alt='recent' src={this.state.filepreview}/>
+        <input id="product-image-previewed" 
                 type="file" 
-                name="myImage" 
+                name="myProductPicture" 
                 onChange= {this.onChange}/>
                   
         
         <div id="error-div">
-                <ErrorMessage name="productImage" id="error-product-div"/>
+                <ErrorMessage name="myProductPicture" id="error-product-div"/>
         </div>          
       </div>          
     );
@@ -212,7 +233,7 @@ class DataList extends React.Component{
         </div>          
       </div>      
     );
-  }
+  }//hace falta add el error para la img
 }
 
 //No sabia que si tenia una función que corresponda a un compoentne

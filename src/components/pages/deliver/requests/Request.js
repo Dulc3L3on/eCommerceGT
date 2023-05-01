@@ -253,10 +253,10 @@ function RequestOptions(props){
     return (
         <div id="request-options">
             <div id="request-option-accept" onClick={() => handleRequestOptions('accept', props.index)}>
-                <i class="bi bi-check2"></i>
+                <i className="bi bi-check2"></i>
             </div>
             <div id="request-option-denied" onClick={() => handleRequestOptions('denied', props.index)}>
-                <i class="bi bi-x"></i>
+                <i className="bi bi-x"></i>
             </div>
         </div>
     );

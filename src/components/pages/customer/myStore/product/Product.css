@@ -83,8 +83,9 @@
     width: 100%;
 
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: column;
     justify-content: center;
+    align-items: center;
 
     box-sizing: content-box;
     padding: 20px;
@@ -92,41 +93,38 @@
     /*border: solid 1px rosybrown;*/
 }
 
+#product-info-section-1{
+    height: auto;
+    width: 100%;
 
+    display: flex;    
+    flex-direction: row;
+    justify-content: center;    
+
+    /*border: solid red;*/
+}
 /*
 id="product-image-section" 
 */
-#field-1{
-    height: 630px;
+#product-image-container{
+    height: 520px;
     width: 60%;        
 
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: center;     
+    justify-content: center;   /*no está funcionando.. se puso así despues de haberlo borrado :v */
 
-    box-sizing: border-box;
-    
-    margin-left: -150px;
+    box-sizing: border-box; 
+    padding-top: 25px;     
+    padding-left: 50px; 
 
     /*border: 1px solid skyblue;*/
 }
 
-#field-2, #field-3, #field-4, #field-5{
-    height: 47px;
-    
-    margin-bottom: -20px;
-    
-    /*margin-left: -30px;/*no funciona, a de ser por el bootstrap...*/
-
-    /*border: solid 1px goldenrod;*/
-    font-size: 100px;
-
-}
-
-#img-preview{
-    height: 500px;
-    width: 500px;
+#product-img-preview{
+    height: 470px;
+    width: 470px;
 
     box-sizing: border-box;
     margin-bottom: 27px;
@@ -134,15 +132,9 @@ id="product-image-section"
     border: 1px solid rebeccapurple;
 }
 
-/*#image-previewed{
-    position: relative;
-    display: inline-block;
-
-}*/
-
-#image-previewed::before {
-    height: 57px;
-    width:500px;
+#product-image-previewed::before {
+    height: 470px;/*57px*/
+    width: 470px;
 
     content: 'Choose the image'; /* testo por defecto */
 
@@ -153,9 +145,9 @@ id="product-image-section"
     align-items: center;
     
     position: absolute;
-    left: 36px;/*left: 32px;*/
+    left: 49px;/*left: 35px;*/
     right: 0;
-    top: 530px;/*top: 20px;*/
+    top: 25px;/*top: 530px;*/
     bottom: 0;
 
     border-radius: 5px;    
@@ -163,54 +155,78 @@ id="product-image-section"
     background-color: #5678EF;
   }
 
-  #image-previewed{
-    opacity: 4;/*opacity: 0*/
-    width: 200px;
-    height: 32px;
-    display: inline-block;
-  }
-  
-  #myImage::before {
-    content: 'Seleccionar Archivo 1';
-  }
-  
+ #product-image-previewed{   
+   width: 200px;
+   height: 0;
+   
+   display: inline-block;
 
-  /*#image-previewed{    
-    height: 57px;
-    width:500px;
+   opacity: 4;/*opacity: 4*/
+   cursor: pointer;
+}
 
-    color: white;
-
-    border-radius: 5px;
-    border: none;
-    background-color: #2675eb;/*rgba(33, 132, 179, 0.507);
-}*/
-
-
-#product-info-section{
-    height: 88.5%;
+#product-detail-container{
+    height: 100%;
     width: 80%;
 
     box-sizing: border-box;
     padding: 25px;
-    
-    margin-left: 430px;
-    margin-top: -646px;
 
-    /*border: 1px solid wheat;*/
+    /*border: 1px solid yellow;*/
 }
 
-/*
-display: grid;
-    grid-template-columns: 
-        minmax(300px, 0.2fr)
-        minmax(250px, 1.15fr);        
-    column-gap: 300px;
-    row-gap: 500px;
-*/
+#product-name-container{
+    height: auto;
+    width: 100%;
 
-#features{
-    resize: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+#product-brand-container{
+    height: auto;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    margin-bottom: 57px;
+}
+
+#brand_select{
+    height: 57px;
+    width: 100%;
+
+    box-sizing: border-box;
+    padding: 10px;
+
+    border-radius: 0px 7px 7px 0px;
+    border: 1px solid rgba(192, 192, 192, 0.877);
+    background-color: white;
+}
+
+#product-numbers-container{
+    display: flex;
+
+    /*border: 1px solid slategray;*/
+}
+
+#product-numbers-container{
+    height: auto;
+    width: 100%;
+
+    display: flex;
+    justify-content: flex-end;
+    /*border: 1px solid crimson;*/
+}
+
+#product-price-container, #product-availability-container{
+    height: auto;
+    width: auto;            
+}
+
+#product-price-container{
+    margin-right: 57px;
 }
 
 #add-more-categories{    
@@ -231,12 +247,62 @@ display: grid;
     box-shadow: 2px 3px 4px 0.5px rgba(0, 0, 0, 0.2);/*box-shadow: 2px 3px 25px rgba(0, 0, 0, 0.6);*/
 }
 
+#lbl-features{
+    height: 57px;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    box-sizing: border-box;
+    padding: 15px;
+    margin-bottom: -2px;
+
+    border-radius: 7px 7px 0px 0px;
+    border: 1px solid rgba(128, 128, 128, 0.247);
+
+    background-color: #E9ECEF;
+}
+
+#features{
+    resize: none;
+}
+
+#product-info-section-2{
+    height: auto;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    box-sizing: border-box;
+    padding: 0px 30px 0px 50px;
+
+    /*border: solid;*/
+}
+
+#field-6{
+    width: 100%;
+}
+
+#field-2, #field-3, #field-4, #field-5{
+    height: 47px;
+    
+    margin-bottom: -20px;
+    
+    /*margin-left: -30px;/*no funciona, a de ser por el bootstrap...*/
+
+    /*border: solid 1px goldenrod;*/
+    font-size: 100px;
+
+}
+
 #product-submit{
     height: 55px;
-    width: 135%;
+    width: 94.3%;
 
-    margin-top: 15px;    
-    margin-left: -120px;
+    margin-left: 54px;
 }
 
 .error-product-div{

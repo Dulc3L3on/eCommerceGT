@@ -26,7 +26,7 @@
     box-sizing: border-box;
     padding: 20px;
 
-    border: solid chocolate;
+    /*border: solid chocolate;*/
     box-shadow: 7px 10px 50px 10px rgba(0, 0, 0, 0.062);
 }
 
@@ -55,7 +55,7 @@
     box-sizing: border-box;
     padding: 20px;
 
-    border: solid;
+    border: 1px solid black;
 }
 
 #report-date-options{
@@ -88,7 +88,7 @@
     padding-top: 50px;
     
     
-    border: solid;
+    /*border: solid;*/
 }
 
 #report-choices-group-1{
@@ -104,7 +104,7 @@
 
     justify-content: center;    
 
-    border: 1px solid grey;
+    /*border: 1px solid black;*/
 }
 
 #report-choices-group-2{
@@ -117,7 +117,7 @@
 
     box-sizing: border-box;    
 
-    border: 1px solid grey;
+    /*border: 1px solid black;*/
 }
 
 #report-1, #report-2, #report-3, #report-4, #report-5{
@@ -127,7 +127,7 @@
     box-sizing: border-box;   
     margin-bottom: 25px;
 
-    border: solid;
+    /*border: solid;*/
 }
 
 #my-report-options-div{
@@ -155,8 +155,7 @@
     margin-bottom: 40px;        
     margin-left: 8px;
 
-    font-size: 18px;
-    visibility: hidden;
+    font-size: 18px;    
     /*border: 1px solid cornflowerblue;*/
 }
 
@@ -181,5 +180,7 @@
     border: 1px solid grey;
     background-color: white;
     box-shadow: 2px 3px 4px 0.5px rgba(0, 0, 0, 0.2);
-    visibility: visible;
+
+    cursor: pointer;
+    
 }
